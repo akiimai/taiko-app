@@ -7,9 +7,9 @@ app.get('/', function (req, res) {
 
     // config for your database
     var config = {
-        user: 'DESKTOP-DEE8FIR/Aki',
-        password: '',
-        server: 'localhost', 
+        user: 'c60',
+        password: 'c60',
+        server: '127.0.0.1', 
         database: 'TaikoApp' 
     };
 
