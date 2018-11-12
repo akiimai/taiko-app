@@ -1,9 +1,7 @@
 const taikoGlossaryServices = require('../services/taikoGlossary.services'); 
 
 const readAll = (req, res) => { 
-    const promise = taikoGlossaryServices.readAll()
-
-    return promise
+    return taikoGlossaryServices.readAll()
         .then(response => {
             res.status(200).json(response)
         })

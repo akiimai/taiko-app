@@ -44,7 +44,7 @@ h6 {
 }
 
 .bg-primary {
-  background-color: #F05F40 !important;
+  background-color: #66B9B8 !important;
 }
 
 .bg-dark {
@@ -178,7 +178,7 @@ img::-moz-selection {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url("../img/header.jpg");
+  background-image: url("../img/asano_taiko_drum_closeup.png");
   background-position: center center;
   background-size: cover;
 }

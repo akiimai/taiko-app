@@ -9,6 +9,7 @@
 
 .App-header {
   background-color: #282c34;
+  background-image: url("/public/themes/img/asano_taiko_drum_closeup.png"); 
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -1,10 +1,10 @@
-const mssql = require('mssql'); 
+const mssql = require('../../mssql'); 
 const { TYPES } = require('tedious'); 
 
 const readAll = () => {
-    const promise = mssql.executeProc("TaikoGlossary_ReadAll") 
+    const promise = mssql.executeProc("TaikoGlossary_SelectAll") 
         .then(response => {
-            return response.resultSets[1]
+            return response.resultSets[0]
         })
         .catch(responseErrorHandler)
     return promise 
@@ -15,7 +15,7 @@ const responseErrorHandler = (error) => {
         console.log(error.response.data.errors); 
     }
 
-    Promise.reject()
+    return Promise.reject(error)
 }
 
 module.exports = {
