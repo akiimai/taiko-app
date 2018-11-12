@@ -1,7 +1,14 @@
-import axios from 'axios'
+import axios from 'axios'; 
 
-const insertById = (data) => {
-    const promise = axios.get("/api/taiko-drills", data)
+const post = (data) => {
+    debugger
+    const url = "/api/taiko-drills"
+    const config = {
+        method: "POST",
+        data: data
+    }
+
+    const promise = axios.post(url, config)
         .then(responseSuccess)
         .catch(responseError)
     return promise 
@@ -13,7 +20,8 @@ const responseSuccess = response => {
 }
 
 const responseError = error => {
-    
+    console.log(error)
+
 }
 
-module.export = { insertById }
+export { post }

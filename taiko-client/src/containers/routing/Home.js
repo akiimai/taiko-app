@@ -1,5 +1,7 @@
 import React from 'react';
-import { FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap'; 
+import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap'; 
+import * as validation from '../../utils/validation'; 
+import * as taikoDrillsServices from '../../services/taikoDrills.services'; 
 
 class Home extends React.Component {
     constructor(props) {
@@ -23,15 +25,33 @@ class Home extends React.Component {
                 value: ''
             }
         }
-        this.onClick = this.onClick.bind(this);
         this.handleChange = this.handleChange.bind(this); 
-        this.getCharValidation = this.getCharValidation.bind(this); 
-        this.getNumValidation = this.getNumValidation.bind(this); 
+        this.onSubmit = this.onSubmit.bind(this); 
     }
 
-    onClick() {
-        const data = {
+    checkValidation() {
+        return validation.getCharValidation(this.state.name) &&
+            validation.getCharValidation(this.state.description) &&
+            validation.getNumValidation(this.state.level) &&
+            validation.getNumValidation(this.state.drillLength)
+    }
 
+    onSubmit() {
+        debugger
+        const data = {
+            name: this.state.name.value, 
+            description: this.state.description.value, 
+            level: this.state.level.value, 
+            drillLength: this.state.drillLength.value
+        }
+        if (this.checkValidation()) {
+            taikoDrillsServices.post(data)
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(console.log)
+        } else {
+            alert("Invalid Information")
         }
     }
 
@@ -43,28 +63,6 @@ class Home extends React.Component {
         this.setState({
             [event.target.name]: newObj
         })
-    }
-
-    getCharValidation(item) {
-        if (item && !item.touched) {return null}
-        if (item && item.value.length === 0) {
-            return "invalid"
-        } else {
-            return "valid"
-        }
-    }
-    
-    getNumValidation(item) {
-        if (item && !item.touched) {return null}
-        function validateNumber() {
-            var list = /^[1-9]\d*$/
-            return list.test(String(item.value))
-        }
-        if (!validateNumber(item.value) || item.value.length === 0) {
-            return "invalid"
-        } else {
-            return "valid"
-        }
     }
 
     render() {
@@ -80,50 +78,50 @@ class Home extends React.Component {
                                     <FormGroup>
                                         <FormControl
                                             type="text"
-                                            className={this.getCharValidation(this.state.name)}
+                                            className={validation.getCharValidation(this.state.name)}
                                             name="name"
                                             value={this.state.name.value}
                                             placeholder="Enter drill name"
                                             onChange={this.handleChange}
                                         />  
                                         <FormControl.Feedback />
-                                        {this.getCharValidation(this.state.name) === "invalid" ? <HelpBlock>Please enter drill name</HelpBlock> : null}
+                                        {validation.getCharValidation(this.state.name) === "invalid" ? <HelpBlock>Please enter drill name</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
                                         <FormControl 
                                             textarea
-                                            className={"textarea-autosize" + this.getCharValidation(this.state.description)}
+                                            className={"textarea-autosize" + validation.getCharValidation(this.state.description)}
                                             name="description"
                                             value={this.state.description.value}
                                             placeholder="Enter description"
                                             onChange={this.handleChange}
                                         />
                                         <FormControl.Feedback />
-                                        {this.getCharValidation(this.state.description) === "invalid" ? <HelpBlock>Please enter drill description</HelpBlock> : null}
+                                        {validation.getCharValidation(this.state.description) === "invalid" ? <HelpBlock>Please enter drill description</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup> 
                                         <FormControl
                                             type="text"
-                                            className={this.getNumValidation(this.state.level)}
+                                            className={validation.getNumValidation(this.state.level)}
                                             name="level"
                                             value={this.state.level.value}
                                             placeholder="Enter drill level"
                                             onChange={this.handleChange}
                                         />
                                         <FormControl.Feedback />
-                                        {this.getNumValidation(this.state.level) === "invalid" ? <HelpBlock>Please enter drill level</HelpBlock> : null}
+                                        {validation.getNumValidation(this.state.level) === "invalid" ? <HelpBlock>Please enter drill level</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
                                         <FormControl
                                             type="text"
-                                            className={this.getNumValidation(this.state.drillLength)}
+                                            className={validation.getNumValidation(this.state.drillLength)}
                                             name="drillLength"
                                             value={this.state.drillLength.value}
                                             placeholder="Enter drill length"
                                             onChange={this.handleChange}
                                         />
                                         <FormControl.Feedback />
-                                        {this.getNumValidation(this.state.drillLength) === "invalid" ? <HelpBlock>Please enter drill length</HelpBlock> : null}
+                                        {validation.getNumValidation(this.state.drillLength) === "invalid" ? <HelpBlock>Please enter drill length</HelpBlock> : null}
                                     </FormGroup>
                                     <button className="btn btn-light btn-xl js-scroll-trigger" onClick={this.onSubmit} value={this.state.id}>
                                         {/* <i className={icon}></i> {button} */} Submit
