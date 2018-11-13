@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const readAll = () => {
-    const url = "/api/taiko-drills"
+    const url = "/api/taiko-drills/generator"
     const config = {
         method: "GET"
     }

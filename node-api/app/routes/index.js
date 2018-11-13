@@ -3,6 +3,6 @@ const taikoGlossaryRoutes = require('./taikoGlossary.routes');
 const taikoDrillsRoutes = require('./taikoDrills.routes'); 
 
 router.use('/taiko-glossary', taikoGlossaryRoutes)
-router.use('/taiko-drills', taikoDrillsRoutes)
+router.use('/taiko-drills/generator', taikoDrillsRoutes)
 
 module.exports = router; 

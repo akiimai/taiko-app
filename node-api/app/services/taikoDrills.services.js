@@ -10,6 +10,17 @@ const readAll = () => {
     return promise; 
 }
 
+const readById = (id) => {
+    const promise = mssql.executeProc("TaikoDrills_Select_ById", sqlRequest => {
+        sqlRequest.addParameter("Id", TYPES.Int, id)
+    })
+        .then(response => {
+            return response.resultSets[0]
+        })
+        .catch(responseErrorHandler)
+    return promise; 
+}
+
 const create = (data) => {
     debugger
     const promise = mssql.executeProc("TaikoDrills_Insert", sqlRequest => {
@@ -39,5 +50,6 @@ const responseErrorHandler = (error) => {
 
 module.exports = {
     readAll, 
+    readById, 
     create
 }

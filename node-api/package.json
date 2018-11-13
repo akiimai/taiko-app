@@ -14,5 +14,8 @@
     "mssql": "^4.2.3",
     "startbootstrap-creative": "^5.0.1",
     "tedious": "^3.0.1"
+  },
+  "devDependencies": {
+    "ws": "3.3.2"
   }
 }

@@ -6,7 +6,8 @@ class DrillGenerator extends React.Component {
         super(props)
 
         this.state = {
-            select: false
+            select: false,
+            data: null
         }
 
         this.onFind = this.onFind.bind(this);
@@ -15,34 +16,38 @@ class DrillGenerator extends React.Component {
     onFind() {
         drillsGeneratorServices.readAll()
             .then(response => {
-                console.log(response)
+                debugger
+                this.setState({
+                    select:true, 
+                    data: response[0]
+                })
             })
             .catch(console.log)
-        
-        this.setState({
-            select: true
-        })
     }
 
     render() {
-        let select;
+        debugger
+        let select; 
         if (this.state.select) {
-            select =
-                // <section className="bg-primary text-white mb-0" id="list">
+            select = this.state.data ? this.state.data.map(item => {
+                return (
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-3"></div>
                             <div className="col-lg-6">
-                                <p>Freelancer is a free bootstrap theme created by Start Bootstrap. 
-                                The download includes the complete source files including HTML, CSS, and JavaScript 
-                                as well as optional LESS stylesheets for easy customization.
-                                </p>
+                                {/* <p>Freelancer is a free bootstrap theme created by Start Bootstrap. 
+                            The download includes the complete source files including HTML, CSS, and JavaScript 
+                            as well as optional LESS stylesheets for easy customization.
+                            </p> */}
+                                <p>Name: {item.Name}</p>
                             </div>
                             <div className="col-lg-3"></div>
 
                         </div>
                     </div>
-                // </section>
+                )
+            })
+                : "is loading"
         }
 
         return (
