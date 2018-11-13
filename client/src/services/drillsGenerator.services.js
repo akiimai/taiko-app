@@ -1,11 +1,36 @@
 import axios from 'axios'
 
-const readAll = () => {
+const readRandom = () => {
     const url = "/api/taiko-drills/generator"
     const config = {
         method: "GET"
     }
     const promise = axios(url, config) 
+        .then(responseSuccess)
+        .catch(responseError)
+    return promise 
+}
+
+const readAll = () => {
+    const url = "/api/taiko-drills"
+    const config = {
+        method: "GET"
+    }
+    const promise = axios(url, config)
+        .then(responseSuccess)
+        .catch(responseError)
+    return promise
+}
+
+const post = (data) => {
+    debugger
+    const url = "/api/taiko-drills"
+    const config = {
+        method: "POST",
+        data: data
+    }
+
+    const promise = axios.post(url, config)
         .then(responseSuccess)
         .catch(responseError)
     return promise 
@@ -20,4 +45,4 @@ const responseError = error => {
     console.log(error)
 }
 
-export { readAll }
+export { readRandom, readAll, post }

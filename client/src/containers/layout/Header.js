@@ -9,7 +9,6 @@ class Header extends Component {
                     <h1 class="text-uppercase mb-0">Drill Generator</h1>
                     <hr class="star-light" />
                     <h2 class="font-weight-light mb-0">Web Developer - Graphic Artist - User Experience Designer</h2> */}
-
                 </div>
             </header>
         )
