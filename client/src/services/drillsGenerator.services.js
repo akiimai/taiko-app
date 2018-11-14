@@ -12,7 +12,7 @@ const readRandom = () => {
 }
 
 const readAll = () => {
-    const url = "/api/taiko-drills"
+    const url = "/api/taiko-drills/generator/?all"
     const config = {
         method: "GET"
     }
@@ -23,7 +23,6 @@ const readAll = () => {
 }
 
 const post = (data) => {
-    debugger
     const url = "/api/taiko-drills"
     const config = {
         method: "POST",
@@ -36,6 +35,13 @@ const post = (data) => {
     return promise 
 }
 
+const deleteById = (id) => {
+    debugger
+    return axios.delete("/api/taiko-drills/" + id)
+        .then(responseSuccess)
+        .catch(responseError)
+}
+
 const responseSuccess = response => {
     console.log(response)
     return response.data 
@@ -45,4 +51,4 @@ const responseError = error => {
     console.log(error)
 }
 
-export { readRandom, readAll, post }
+export { readRandom, readAll, post, deleteById }

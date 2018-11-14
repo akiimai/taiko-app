@@ -4,5 +4,6 @@ const taikoDrillsRoutes = require('./taikoDrills.routes');
 
 router.use('/taiko-glossary', taikoGlossaryRoutes)
 router.use('/taiko-drills/generator', taikoDrillsRoutes)
+router.use('/taiko-drills', taikoDrillsRoutes)
 
 module.exports = router; 
