@@ -30,33 +30,39 @@ const readAll = (req, res) => {
 }
 
 const create = (req, res) => {
-    const promise =  taikoDrillsServices.create(req.body)
-    promise
+    return taikoDrillsServices.create(req.body)
         .then(response => {
             res.status(200).json(response)
         })
         .catch(err => {
             res.status(500).send(err); 
         })
-    return promise
+}
+
+const updateById = (req, res) => {
+    return taikoDrillsServices.updateById(req.params.id)
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            res.status(500).send(err); 
+        })
 }
 
 const deleteById = (req, res) => {
-    let id = parseInt(req.params.id)
-    const promise = taikoDrillsServices.deleteById(id)
-    promise
+    return taikoDrillsServices.deleteById(req.params.id)
         .then(response => {
             res.status(200).json(response)
         })
         .catch(err => {
             res.status(500).send(err); 
         })
-    return promise
 }
 
 module.exports = {
     readAll, 
     create, 
+    updateById, 
     deleteById
 }
 

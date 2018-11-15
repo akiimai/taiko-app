@@ -2,37 +2,35 @@ const mssql = require('../../mssql');
 const { TYPES } = require('tedious'); 
 
 const readAll = () => {
-    const promise = mssql.executeProc("TaikoDrills_SelectAll")
+    return mssql.executeProc("TaikoDrills_SelectAll")
         .then(response => {
             return response.resultSets[0]
-        }) 
-        .catch(responseErrorHandler)
-    return promise; 
+        })
+        .catch(responseErrorHandler);
 }
 
-const readById = (id) => {
-    const promise = mssql.executeProc("TaikoDrills_Select_ById", sqlRequest => {
+const readById = id => {
+    return mssql.executeProc("TaikoDrills_Select_ById", sqlRequest => {
         sqlRequest.addParameter("Id", TYPES.Int, id)
     })
         .then(response => {
             return response.resultSets[0]
         })
-        .catch(responseErrorHandler)
-    return promise; 
+        .catch(responseErrorHandler);
 }
 
-const create = (item) => {
+const create = item => {
     const promise = mssql.executeProc("TaikoDrills_Insert", sqlRequest => {
-        sqlRequest.addParameter("Name", TYPES.NVarChar, item.data.name, {
+        sqlRequest.addParameter("Name", TYPES.NVarChar, item.name, {
             length: 200
         }); 
-        sqlRequest.addParameter("Description", TYPES.NVarChar, item.data.description, {
+        sqlRequest.addParameter("Description", TYPES.NVarChar, item.description, {
             length: 3000
         });
-        sqlRequest.addParameter("LevelId", TYPES.Int, item.data.level); 
-        sqlRequest.addParameter("EquipmentId", TYPES.Int, item.data.equipment); 
-        sqlRequest.addParameter("TypeId", TYPES.Int, item.data.type); 
-        sqlRequest.addParameter("Length", TYPES.Int, item.data.drillLength); 
+        sqlRequest.addParameter("LevelId", TYPES.Int, item.level); 
+        sqlRequest.addParameter("EquipmentId", TYPES.Int, item.equipment); 
+        sqlRequest.addParameter("TypeId", TYPES.Int, item.type); 
+        sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
         sqlRequest.addOutputParameter("Id", TYPES.Int, null); 
     })
         .then(response => {
@@ -42,21 +40,36 @@ const create = (item) => {
     return promise; 
 }
 
+const updateById = id => {
+    return mssql.executeProc("TaikoDrills_Update_ById", sqlRequest => {
+        sqlRequest.addParameter("Name", TYPES.NVarChar, item.name, {
+            length: 200
+        }); 
+        sqlRequest.addParameter("Description", TYPES.NVarChar, item.description, {
+            length: 3000
+        });
+        sqlRequest.addParameter("LevelId", TYPES.Int, item.level); 
+        sqlRequest.addParameter("EquipmentId", TYPES.Int, item.equipment); 
+        sqlRequest.addParameter("TypeId", TYPES.Int, item.type); 
+        sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
+        sqlRequest.addParameter("Id", TYPES.Int, id); 
+    })
+}
+
 const deleteById = (id) => {
-    let test = parseInt(id)
-    const promise = mssql.executeProc("TaikoDrills_Delete", sqlRequest => {
-        sqlRequest.addParameter("Id", TYPES.Int, test); 
+    const test = parseInt(id)
+    return mssql.executeProc("TaikoDrills_Delete", sqlRequest => {
+        sqlRequest.addParameter("Id", TYPES.Int, test);
     })
         .then(response => {
             return response
         })
-        .catch(responseErrorHandler)
-    return promise; 
+        .catch(responseErrorHandler);
 }
 
 const responseErrorHandler = (error) => {
-    if (error && error.response && error.response.data && error.response.data.errors) {
-        console.log(error.response.data.errors)
+    if (error && error.response && error.response.data && error.response.errors) {
+        console.log(error.response.errors)
     }
     return Promise.reject(errors)
 }
@@ -65,5 +78,6 @@ module.exports = {
     readAll, 
     readById, 
     create, 
+    updateById, 
     deleteById
 }

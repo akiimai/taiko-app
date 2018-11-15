@@ -1,6 +1,7 @@
 import React from 'react'; 
 import * as drillsGeneratorServices from '../services/drillsGenerator.services'; 
-import { Table } from 'react-bootstrap'; 
+import { Modal, Table } from 'react-bootstrap'; 
+import { withRouter } from 'react-router-dom'; 
 class DrillList extends React.Component {
     constructor(props) {
         super(props)
@@ -9,10 +10,15 @@ class DrillList extends React.Component {
             data: null
         }
 
+        this.readAll = this.readAll.bind(this); 
         this.onDelete = this.onDelete.bind(this); 
     }
 
     componentDidMount() {
+        this.readAll()
+    }
+
+    readAll() {
         drillsGeneratorServices.readAll()
             .then(response => {
                 this.setState({
@@ -24,8 +30,16 @@ class DrillList extends React.Component {
 
     onDelete(e, id) {
         drillsGeneratorServices.deleteById(id) 
-            .then(response => {
-                console.log(response)
+            .then(() => {
+                this.readAll()
+            })
+            .catch(console.log)
+    }
+
+    onEdit(e, id) {
+        drillsGeneratorServices.updateById(id)
+            .then(() => {
+                this.props.history.push('/')
             })
             .catch(console.log)
     }
@@ -39,7 +53,7 @@ class DrillList extends React.Component {
                         <td>{item.Description}</td>
                         <td>{item.Length}</td>
                         <td><button className="btn btn-sm btn-outline-light" onClick={e => this.onDelete(e, item.Id)}>Delete</button></td>
-                        <td><button className="btn btn-sm btn-outline-light">Edit</button></td>
+                        <td><button className="btn btn-sm btn-outline-light" onClick={e => this.onEdit(e, item.Id)}>Edit</button></td>
                     </tr>
                 </tbody>
             )
@@ -77,4 +91,4 @@ class DrillList extends React.Component {
 
 }
 
-export default DrillList; 
+export default withRouter(DrillList); 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap'; 
+import { withRouter } from 'react-router-dom'; 
 import * as validation from '../utils/validation'; 
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
-
 class DrillForm extends React.Component {
     constructor(props) {
         super(props)
@@ -46,8 +46,8 @@ class DrillForm extends React.Component {
             validation.getNumValidation(this.state.drillLength)
     }
 
-    onSubmit() {
-        debugger
+    onSubmit(e) {
+        e.preventDefault(); 
         const data = {
             name: this.state.name.value, 
             description: this.state.description.value, 
@@ -58,8 +58,8 @@ class DrillForm extends React.Component {
         }
         if (this.checkValidation()) {
             drillsGeneratorServices.post(data)
-                .then(response => {
-                    console.log(response)
+                .then(() => {
+                    setTimeout(this.props.history.push("/drill-list"), 3000);
                 })
                 .catch(console.log)
         } else {
@@ -178,4 +178,4 @@ class DrillForm extends React.Component {
     }
 }
 
-export default DrillForm; 
+export default withRouter(DrillForm); 

@@ -1,42 +1,30 @@
 import axios from 'axios'
 
 const readRandom = () => {
-    const url = "/api/taiko-drills/generator"
-    const config = {
-        method: "GET"
-    }
-    const promise = axios(url, config) 
+    return axios.get("/api/taiko-drills/generator")
         .then(responseSuccess)
         .catch(responseError)
-    return promise 
 }
 
 const readAll = () => {
-    const url = "/api/taiko-drills/generator/?all"
-    const config = {
-        method: "GET"
-    }
-    const promise = axios(url, config)
+    return axios.get("/api/taiko-drills/generator/?all")
         .then(responseSuccess)
         .catch(responseError)
-    return promise
 }
 
-const post = (data) => {
-    const url = "/api/taiko-drills"
-    const config = {
-        method: "POST",
-        data: data
-    }
-
-    const promise = axios.post(url, config)
+const post = data => {
+    return axios.post("/api/taiko-drills", data)
         .then(responseSuccess)
         .catch(responseError)
-    return promise 
 }
 
-const deleteById = (id) => {
-    debugger
+const updateById = id => {
+    return axios.put("/api/taiko-drills/" + id)
+        .then(responseSuccess)
+        .catch(responseError)
+}
+
+const deleteById = id => {
     return axios.delete("/api/taiko-drills/" + id)
         .then(responseSuccess)
         .catch(responseError)
@@ -51,4 +39,4 @@ const responseError = error => {
     console.log(error)
 }
 
-export { readRandom, readAll, post, deleteById }
+export { readRandom, readAll, post, updateById, deleteById }
