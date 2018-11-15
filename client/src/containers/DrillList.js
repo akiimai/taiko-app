@@ -1,7 +1,8 @@
 import React from 'react'; 
 import * as drillsGeneratorServices from '../services/drillsGenerator.services'; 
-import { Modal, Table } from 'react-bootstrap'; 
+import { Table } from 'react-bootstrap'; 
 import { withRouter } from 'react-router-dom'; 
+import DrillEditModal from './DrillEditModal'; 
 class DrillList extends React.Component {
     constructor(props) {
         super(props)
@@ -36,14 +37,6 @@ class DrillList extends React.Component {
             .catch(console.log)
     }
 
-    onEdit(e, id) {
-        drillsGeneratorServices.updateById(id)
-            .then(() => {
-                this.props.history.push('/')
-            })
-            .catch(console.log)
-    }
-
     render() {
         const list = this.state.data ? this.state.data.map(item => {
             return (
@@ -53,7 +46,7 @@ class DrillList extends React.Component {
                         <td>{item.Description}</td>
                         <td>{item.Length}</td>
                         <td><button className="btn btn-sm btn-outline-light" onClick={e => this.onDelete(e, item.Id)}>Delete</button></td>
-                        <td><button className="btn btn-sm btn-outline-light" onClick={e => this.onEdit(e, item.Id)}>Edit</button></td>
+                        <td><DrillEditModal itemData={item} readAll={this.readAll}/></td>
                     </tr>
                 </tbody>
             )

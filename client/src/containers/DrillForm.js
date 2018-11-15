@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap'; 
+import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap'; 
 import { withRouter } from 'react-router-dom'; 
 import * as validation from '../utils/validation'; 
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
@@ -89,6 +89,7 @@ class DrillForm extends React.Component {
                                 <h4 style={{color: "#1A2930"}}>Add A Drill</h4>
                                 <form>
                                     <FormGroup>
+                                        <ControlLabel>Name</ControlLabel>
                                         <FormControl
                                             type="text"
                                             className={validation.getCharValidation(this.state.name)}
@@ -101,6 +102,7 @@ class DrillForm extends React.Component {
                                         {validation.getCharValidation(this.state.name) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter drill name</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
+                                        <ControlLabel>Description</ControlLabel>
                                         <FormControl 
                                             textarea
                                             className={"textarea-autosize" + validation.getCharValidation(this.state.description)}
@@ -113,6 +115,7 @@ class DrillForm extends React.Component {
                                         {validation.getCharValidation(this.state.description) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter drill description</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup> 
+                                        <ControlLabel>Level Id</ControlLabel>
                                         <FormControl
                                             type="number"
                                             className={validation.getNumValidation(this.state.level)}
@@ -125,6 +128,7 @@ class DrillForm extends React.Component {
                                         {validation.getNumValidation(this.state.level) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number between 1-3</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
+                                        <ControlLabel>Equipment Id</ControlLabel>
                                         <FormControl
                                             type="number"
                                             className={validation.getNumValidation(this.state.equipment)}
@@ -137,6 +141,7 @@ class DrillForm extends React.Component {
                                         {validation.getNumValidation(this.state.equipment) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number between 1-4</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
+                                        <ControlLabel>Type Id</ControlLabel>
                                         <FormControl
                                             type="number"
                                             className={validation.getNumValidation(this.state.type)}
@@ -149,6 +154,7 @@ class DrillForm extends React.Component {
                                         {validation.getNumValidation(this.state.type) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number between 1-4</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
+                                        <ControlLabel>Length</ControlLabel>
                                         <FormControl
                                             type="number"
                                             className={validation.getNumValidation(this.state.drillLength)}

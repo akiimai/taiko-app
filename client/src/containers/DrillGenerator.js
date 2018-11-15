@@ -31,11 +31,7 @@ class DrillGenerator extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-3"></div>
-                            <div className="col-lg-6" style={{ textAlign: 'left', borderStyle: 'dotted', padding: '40px' }}>
-                                {/* <p>Freelancer is a free bootstrap theme created by Start Bootstrap. 
-                            The download includes the complete source files including HTML, CSS, and JavaScript 
-                            as well as optional LESS stylesheets for easy customization.
-                            </p> */}
+                            <div className="col-lg-6" style={{ color: "#1A2930", textAlign: 'left', borderStyle: 'dashed', padding: '40px' }}>
                                 <p>Name: {item.Name}</p>
                                 <p>Description: {item.Description}</p>
                                 <p>Length: {item.Length} </p>
@@ -53,7 +49,6 @@ class DrillGenerator extends React.Component {
             <React.Fragment>
                 <div className="masthead bg-primary text-white text-center">
                     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    <br /><br /><br /><br />
                     <h4 style={{color: "#1A2930"}}>What do you want to practice?</h4>
 
                     <br /><br />

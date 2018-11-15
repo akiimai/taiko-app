@@ -18,8 +18,8 @@ const post = data => {
         .catch(responseError)
 }
 
-const updateById = id => {
-    return axios.put("/api/taiko-drills/" + id)
+const updateById = data => {
+    return axios.put("/api/taiko-drills/" + data.id, data)
         .then(responseSuccess)
         .catch(responseError)
 }

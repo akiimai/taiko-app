@@ -40,7 +40,7 @@ const create = item => {
     return promise; 
 }
 
-const updateById = id => {
+const updateById = (id, item) => {
     return mssql.executeProc("TaikoDrills_Update_ById", sqlRequest => {
         sqlRequest.addParameter("Name", TYPES.NVarChar, item.name, {
             length: 200

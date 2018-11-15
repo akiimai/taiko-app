@@ -40,7 +40,8 @@ const create = (req, res) => {
 }
 
 const updateById = (req, res) => {
-    return taikoDrillsServices.updateById(req.params.id)
+    const id = parseInt(req.params.id)
+    return taikoDrillsServices.updateById(id, req.body)
         .then(response => {
             res.status(200).json(response)
         })
