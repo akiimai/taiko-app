@@ -23,7 +23,7 @@ class DrillGenerator extends React.Component {
             .catch(console.log)
     }
 
-    render() {
+    render() { 
         let select;
         if (this.state.select) {
             select = this.state.data ? this.state.data.map(item => {

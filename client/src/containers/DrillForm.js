@@ -1,8 +1,10 @@
 import React from 'react';
-import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap'; 
-import { withRouter } from 'react-router-dom'; 
-import * as validation from '../utils/validation'; 
+import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
+import Select from 'react-select';
+import * as validation from '../utils/validation';
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
+import { levelData, lengthData, equipmentData, typeData } from './data';
 class DrillForm extends React.Component {
     constructor(props) {
         super(props)
@@ -11,49 +13,53 @@ class DrillForm extends React.Component {
             name: {
                 touched: false,
                 value: ''
-            }, 
+            },
             description: {
-                touched: false, 
+                touched: false,
                 value: ''
-            }, 
+            },
             level: {
-                touched: false, 
+                touched: false,
                 value: ''
-            }, 
+            },
             equipment: {
-                touched: false, 
+                touched: false,
                 value: ''
-            }, 
+            },
+            equipmentValue: [],
             type: {
-                touched: false, 
+                touched: false,
                 value: ''
-            }, 
+            },
+            typeValue: [],
             drillLength: {
-                touched: false, 
+                touched: false,
                 value: ''
             }
         }
-        this.handleChange = this.handleChange.bind(this); 
-        this.onSubmit = this.onSubmit.bind(this); 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     checkValidation() {
         return validation.getCharValidation(this.state.name) &&
             validation.getCharValidation(this.state.description) &&
-            validation.getNumValidation(this.state.level) &&
-            validation.getNumValidation(this.state.equipment) &&
-            validation.getNumValidation(this.state.type) &&
+            validation.getCharValidation(this.state.level) &&
+            // validation.getNumValidation(this.state.equipment) &&
+            // validation.getNumValidation(this.state.type) &&
             validation.getNumValidation(this.state.drillLength)
     }
 
     onSubmit(e) {
-        e.preventDefault(); 
+        debugger
+        e.preventDefault();
         const data = {
-            name: this.state.name.value, 
-            description: this.state.description.value, 
-            level: parseInt(this.state.level.value), 
-            equipment: parseInt(this.state.equipment.value), 
-            type: parseInt(this.state.type.value), 
+            name: this.state.name.value,
+            description: this.state.description.value,
+            level: this.state.level.value,
+            equipment: this.state.equipmentValue,
+            type: this.state.typeValue,
             drillLength: parseInt(this.state.drillLength.value)
         }
         if (this.checkValidation()) {
@@ -69,12 +75,50 @@ class DrillForm extends React.Component {
 
     handleChange(event) {
         const newObj = {
-            touched: true, 
+            touched: true,
             value: event.target.value
         }
+
         this.setState({
             [event.target.name]: newObj
         })
+    }
+
+    handleSelect(event) {
+        let value = []; 
+        if (event[0] && event[0].name === 'equipment') {
+            for (let i = 0; i < event.length; i++) {
+                value.push(event[i].value)
+            }
+            this.setState({
+                equipmentValue: value
+            })
+        } else if (event[0] && event[0].name === 'type') {
+            for (let i = 0; i < event.length; i++) {
+                value.push(event[i].value)
+            }
+            this.setState({
+                typeValue: value
+            })
+        }
+
+        if (event.name === 'level') {
+            const newObj = {
+                touched: true,
+                value: event.label
+            }
+            this.setState({
+                level: newObj
+            })
+        } else if (event.name === 'drillLength') {
+            const newObj = {
+                touched: true,
+                value: event.value
+            }
+            this.setState({
+                drillLength: newObj
+            })
+        }
     }
 
     render() {
@@ -82,11 +126,11 @@ class DrillForm extends React.Component {
             <React.Fragment>
                 <section class="bg-primary" id="drill">
                     <div class="container">
-                    <br /><br /><br /><br />
+                        <br /><br /><br /><br />
                         <div class="row">
                             <div className="col-md-3"></div>
                             <div className="col-md-6">
-                                <h4 style={{color: "#1A2930"}}>Add A Drill</h4>
+                                <h4 style={{ color: "#1A2930" }}>Add Drill</h4>
                                 <form>
                                     <FormGroup>
                                         <ControlLabel>Name</ControlLabel>
@@ -97,13 +141,13 @@ class DrillForm extends React.Component {
                                             value={this.state.name.value}
                                             placeholder="Enter drill name"
                                             onChange={this.handleChange}
-                                        />  
+                                        />
                                         <FormControl.Feedback />
-                                        {validation.getCharValidation(this.state.name) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter drill name</HelpBlock> : null}
+                                        {validation.getCharValidation(this.state.name) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter drill name</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
                                         <ControlLabel>Description</ControlLabel>
-                                        <FormControl 
+                                        <FormControl
                                             textarea
                                             className={"textarea-autosize" + validation.getCharValidation(this.state.description)}
                                             name="description"
@@ -112,62 +156,55 @@ class DrillForm extends React.Component {
                                             onChange={this.handleChange}
                                         />
                                         <FormControl.Feedback />
-                                        {validation.getCharValidation(this.state.description) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter drill description</HelpBlock> : null}
+                                        {validation.getCharValidation(this.state.description) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter drill description</HelpBlock> : null}
                                     </FormGroup>
-                                    <FormGroup> 
-                                        <ControlLabel>Level Id</ControlLabel>
-                                        <FormControl
-                                            type="number"
-                                            className={validation.getNumValidation(this.state.level)}
+                                    <FormGroup>
+                                        <ControlLabel>Level</ControlLabel>
+                                        <Select
+                                            closeMenuOnSelect={true}
+                                            options={levelData}
+                                            onChange={this.handleSelect}
                                             name="level"
-                                            value={this.state.level.value}
-                                            placeholder="Enter drill level"
-                                            onChange={this.handleChange}
+                                            placeholder="Select a drill level"
                                         />
-                                        <FormControl.Feedback />
-                                        {validation.getNumValidation(this.state.level) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number between 1-3</HelpBlock> : null}
+                                        {validation.getCharValidation(this.state.level) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please select a drill level</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
-                                        <ControlLabel>Equipment Id</ControlLabel>
-                                        <FormControl
-                                            type="number"
-                                            className={validation.getNumValidation(this.state.equipment)}
-                                            name="equipment"
-                                            value={this.state.equipment.value}
-                                            placeholder="Enter drill equipment"
-                                            onChange={this.handleChange}
+                                        <ControlLabel>Equipment</ControlLabel>
+                                        <Select
+                                            closeMenuOnSelect={false}
+                                            isMulti
+                                            options={equipmentData}
+                                            onChange={this.handleSelect}
+                                        // name="equipment"
+                                        // value={this.state.equipmentValue}
                                         />
-                                        <FormControl.Feedback />
-                                        {validation.getNumValidation(this.state.equipment) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number between 1-4</HelpBlock> : null}
+                                        {validation.getNumValidation(this.state.equipment) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
-                                        <ControlLabel>Type Id</ControlLabel>
-                                        <FormControl
-                                            type="number"
-                                            className={validation.getNumValidation(this.state.type)}
-                                            name="type"
-                                            value={this.state.type.value}
-                                            placeholder="Enter drill type"
-                                            onChange={this.handleChange}
+                                        <ControlLabel>Type</ControlLabel>
+                                        <Select
+                                            closeMenuOnSelect={false}
+                                            isMulti
+                                            options={typeData}
+                                            onChange={this.handleSelect}
+                                        // name="equipment"
+                                        // value={this.state.equipmentValue}
                                         />
-                                        <FormControl.Feedback />
-                                        {validation.getNumValidation(this.state.type) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number between 1-4</HelpBlock> : null}
+                                        {validation.getNumValidation(this.state.type) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
                                         <ControlLabel>Length</ControlLabel>
-                                        <FormControl
-                                            type="number"
-                                            className={validation.getNumValidation(this.state.drillLength)}
+                                        <Select
+                                            closeMenuOnSelect={true}
+                                            options={lengthData}
+                                            onChange={this.handleSelect}
                                             name="drillLength"
-                                            value={this.state.drillLength.value}
-                                            placeholder="Enter drill length"
-                                            onChange={this.handleChange}
+                                            placeholder="Select a drill length"
                                         />
-                                        <FormControl.Feedback />
-                                        {validation.getNumValidation(this.state.drillLength) === "invalid" ? <HelpBlock style={{color: "red"}}>* Please enter a number</HelpBlock> : null}
                                     </FormGroup>
                                     <br />
-                                    <button className="btn btn-light btn-md js-scroll-trigger" style={{width: "100%"}} onClick={this.onSubmit} value={this.state.id}>
+                                    <button className="btn btn-light btn-md js-scroll-trigger" style={{ width: "100%" }} onClick={this.onSubmit} value={this.state.id}>
                                         Submit
                                     </button>
                                 </form>
@@ -176,7 +213,7 @@ class DrillForm extends React.Component {
                         </div>
                     </div>
                     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    
+
                 </section>
 
             </React.Fragment>

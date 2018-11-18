@@ -27,10 +27,12 @@ const create = item => {
         sqlRequest.addParameter("Description", TYPES.NVarChar, item.description, {
             length: 3000
         });
-        sqlRequest.addParameter("LevelId", TYPES.Int, item.level); 
+        sqlRequest.addParameter("DrillLevel", TYPES.NVarChar, item.level, {
+            length: 50
+        }); 
+        sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
         sqlRequest.addParameter("EquipmentId", TYPES.Int, item.equipment); 
         sqlRequest.addParameter("TypeId", TYPES.Int, item.type); 
-        sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
         sqlRequest.addOutputParameter("Id", TYPES.Int, null); 
     })
         .then(response => {
@@ -48,10 +50,12 @@ const updateById = (id, item) => {
         sqlRequest.addParameter("Description", TYPES.NVarChar, item.description, {
             length: 3000
         });
-        sqlRequest.addParameter("LevelId", TYPES.Int, item.level); 
+        sqlRequest.addParameter("DrillLevel", TYPES.NVarChar, item.level, {
+            length: 50
+        }); 
+        sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
         sqlRequest.addParameter("EquipmentId", TYPES.Int, item.equipment); 
         sqlRequest.addParameter("TypeId", TYPES.Int, item.type); 
-        sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
         sqlRequest.addParameter("Id", TYPES.Int, id); 
     })
 }
@@ -68,10 +72,10 @@ const deleteById = (id) => {
 }
 
 const responseErrorHandler = (error) => {
-    if (error && error.response && error.response.data && error.response.errors) {
-        console.log(error.response.errors)
+    if (error && error.response && error.response.data && error.response.data.errors) {
+        console.log(error.response.data.errors)
     }
-    return Promise.reject(errors)
+    return Promise.reject(error)
 }
 
 module.exports = {

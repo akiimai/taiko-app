@@ -14,7 +14,7 @@ const readAll = (req, res) => {
         return readAll
             .then(response => {
                 const arrLength = response.length;
-                const item = 1 + Math.floor(Math.random() * arrLength)
+                const item = Math.floor(Math.random() * arrLength)
                 return response[item]
             })
             .then(response => {

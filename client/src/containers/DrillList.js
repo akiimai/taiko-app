@@ -3,6 +3,7 @@ import * as drillsGeneratorServices from '../services/drillsGenerator.services';
 import { Table } from 'react-bootstrap'; 
 import { withRouter } from 'react-router-dom'; 
 import DrillEditModal from './DrillEditModal'; 
+import swal from 'sweetalert2'; 
 class DrillList extends React.Component {
     constructor(props) {
         super(props)
@@ -30,11 +31,27 @@ class DrillList extends React.Component {
     }
 
     onDelete(e, id) {
-        drillsGeneratorServices.deleteById(id) 
-            .then(() => {
-                this.readAll()
-            })
-            .catch(console.log)
+        swal({
+            title: 'Are you sure you want to delete?',
+            type: 'warning',
+            showCancelButton: true, 
+            confirmButtonColor: '#4286f4',
+            cancelButtonColor: '#d83e3e',  
+            closeOnConfirm: false, 
+        }).then((result) => {
+            if (result.value) {
+                swal({
+                    title: "Deleted!", 
+                    type: "success", 
+                    
+                })
+                drillsGeneratorServices.deleteById(id) 
+                            .then(() => {
+                                this.readAll()
+                            })
+                            .catch(console.log)
+            }
+        })   
     }
 
     render() {

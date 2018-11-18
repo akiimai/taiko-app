@@ -13,6 +13,7 @@ const readAll = () => {
 }
 
 const post = data => {
+    debugger
     return axios.post("/api/taiko-drills", data)
         .then(responseSuccess)
         .catch(responseError)
