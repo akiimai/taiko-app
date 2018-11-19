@@ -176,8 +176,8 @@ class DrillForm extends React.Component {
                                             isMulti
                                             options={equipmentData}
                                             onChange={this.handleSelect}
-                                        // name="equipment"
-                                        // value={this.state.equipmentValue}
+                                            // name="equipment"
+                                            // value={this.state.equipmentValue}
                                         />
                                         {validation.getNumValidation(this.state.equipment) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null}
                                     </FormGroup>

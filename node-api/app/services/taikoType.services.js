@@ -1,10 +1,10 @@
 const mssql = require('../../mssql'); 
 const { TYPES } = require('tedious'); 
 
-const create = (item) => {
+const create = (drillId, typeId) => {
     return mssql.executeProc("TypeSelect_Insert", sqlRequest => {
-        sqlRequest.addParameter("DrillId", TYPES.Int, item.drillId); 
-        sqlRequest.addParameter("TypeId", TYPES.Int, item.equipmentId); 
+        sqlRequest.addParameter("DrillId", TYPES.Int, drillId); 
+        sqlRequest.addParameter("TypeId", TYPES.Int, typeId); 
         sqlRequest.addOutputParameter("Id", TYPES.Int, null); 
     })
     .then(response => {

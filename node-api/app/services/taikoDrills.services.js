@@ -31,8 +31,6 @@ const create = item => {
             length: 50
         }); 
         sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
-        sqlRequest.addParameter("EquipmentId", TYPES.Int, item.equipment); 
-        sqlRequest.addParameter("TypeId", TYPES.Int, item.type); 
         sqlRequest.addOutputParameter("Id", TYPES.Int, null); 
     })
         .then(response => {
@@ -54,8 +52,6 @@ const updateById = (id, item) => {
             length: 50
         }); 
         sqlRequest.addParameter("Length", TYPES.Int, item.drillLength); 
-        sqlRequest.addParameter("EquipmentId", TYPES.Int, item.equipment); 
-        sqlRequest.addParameter("TypeId", TYPES.Int, item.type); 
         sqlRequest.addParameter("Id", TYPES.Int, id); 
     })
 }

@@ -1,8 +1,10 @@
 import React from 'react';
+import Select from 'react-select';
 import { Modal, FormControl, FormGroup, HelpBlock, ControlLabel } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom';
 import * as validation from '../utils/validation';
-import * as drillsGeneratorServices from '../services/drillsGenerator.services'; 
+import * as drillsGeneratorServices from '../services/drillsGenerator.services';
+import { levelData, equipmentData, typeData } from './data';
 
 class DrillEditModal extends React.Component {
     constructor(props) {
@@ -33,14 +35,14 @@ class DrillEditModal extends React.Component {
             drillLength: {
                 touched: true,
                 value: this.props.itemData.Length
-            }, 
+            },
             id: this.props.itemData.Id
         };
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
-        this.handleChange = this.handleChange.bind(this); 
-        this.onUpdate = this.onUpdate.bind(this); 
+        this.handleChange = this.handleChange.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
     }
 
     handleClose() {
@@ -48,13 +50,19 @@ class DrillEditModal extends React.Component {
         this.props.readAll()
     }
 
-    handleShow() {
-        this.setState({ show: true })
+    handleShow(e, id) {
+        debugger
+
+        drillsGeneratorServices.readByDrillId(id) 
+            .then(() => {
+                this.setState({ show: true })
+            })
+            .catch(console.log)
     }
 
     handleChange(event) {
         const newObj = {
-            touched: true, 
+            touched: true,
             value: event.target.value
         }
         this.setState({
@@ -66,20 +74,20 @@ class DrillEditModal extends React.Component {
         return validation.getCharValidation(this.state.name) &&
             validation.getCharValidation(this.state.description) &&
             validation.getNumValidation(this.state.level) &&
-            validation.getNumValidation(this.state.equipment) &&
-            validation.getNumValidation(this.state.type) &&
+            // validation.getNumValidation(this.state.equipment) &&
+            // validation.getNumValidation(this.state.type) &&
             validation.getNumValidation(this.state.drillLength)
     }
 
     onUpdate(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         const data = {
-            name: this.state.name.value, 
-            description: this.state.description.value, 
-            level: parseInt(this.state.level.value), 
-            equipment: parseInt(this.state.equipment.value), 
-            type: parseInt(this.state.type.value), 
-            drillLength: parseInt(this.state.drillLength.value), 
+            name: this.state.name.value,
+            description: this.state.description.value,
+            level: this.state.level.value,
+            equipment: this.state.equipmentValue,
+            type: this.state.typeValue,
+            drillLength: parseInt(this.state.drillLength.value),
             id: parseInt(this.state.id)
         }
         if (this.checkValidation()) {
@@ -95,9 +103,10 @@ class DrillEditModal extends React.Component {
     }
 
     render() {
+        const test = equipmentData[0] + equipmentData[1]
         return (
             <React.Fragment>
-                <button className="btn btn-sm btn-outline-light" onClick={this.handleShow}>Edit</button>
+                <button className="btn btn-sm btn-outline-light" onClick={e => this.handleShow(e, this.state.id)}>Edit</button>
 
                 <Modal show={this.state.show} onHide={this.handleClose} animation={false} backdropStyle={{ opacity: 0.5 }}>
                     <Modal.Header>
@@ -132,43 +141,35 @@ class DrillEditModal extends React.Component {
                                 {validation.getCharValidation(this.state.description) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter drill description</HelpBlock> : null}
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Level Id</ControlLabel>
-                                <FormControl
-                                    type="number"
-                                    className={validation.getNumValidation(this.state.level)}
-                                    name="level"
-                                    value={this.state.level.value}
-                                    placeholder="Enter drill level"
-                                    onChange={this.handleChange}
+                                <ControlLabel>Level</ControlLabel>
+                                <Select
+                                    closeMenuOnSelect={true}
+                                    options={levelData}
+                                    onChange={this.handleSelect}
                                 />
-                                <FormControl.Feedback />
-                                {validation.getNumValidation(this.state.level) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-3</HelpBlock> : null}
+                                {/* {validation.getNumValidation(this.state.level) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please select a drill level</HelpBlock> : null} */}
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Equipment Id</ControlLabel>
-                                <FormControl
-                                    type="number"
-                                    className={validation.getNumValidation(this.state.equipment)}
-                                    name="equipment"
-                                    value={this.state.equipment.value}
-                                    placeholder="Enter drill equipment"
-                                    onChange={this.handleChange}
+                                <ControlLabel>Equipment</ControlLabel>
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    isMulti
+                                    defaultValue={[equipmentData[0], equipmentData[1]]}
+                                    options={equipmentData}
+                                    onChange={this.handleSelect}
                                 />
-                                <FormControl.Feedback />
-                                {validation.getNumValidation(this.state.equipment) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null}
+                                {/* {validation.getNumValidation(this.state.equipment) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null} */}
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Type Id</ControlLabel>
-                                <FormControl
-                                    type="number"
-                                    className={validation.getNumValidation(this.state.type)}
-                                    name="type"
-                                    value={this.state.type.value}
-                                    placeholder="Enter drill type"
-                                    onChange={this.handleChange}
+                                <ControlLabel>Type</ControlLabel>
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    isMulti
+                                    defaultValue={typeData[0]}
+                                    options={typeData}
+                                    onChange={this.handleSelect}
                                 />
-                                <FormControl.Feedback />
-                                {validation.getNumValidation(this.state.type) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null}
+                                {/* {validation.getNumValidation(this.state.type) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter a number between 1-4</HelpBlock> : null} */}
                             </FormGroup>
                             <FormGroup>
                                 <ControlLabel>Length</ControlLabel>

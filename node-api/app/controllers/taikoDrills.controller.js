@@ -1,4 +1,6 @@
 const taikoDrillsServices = require('../services/taikoDrills.services'); 
+const taikoEquipmentServices = require('../services/taikoEquipment.services'); 
+const taikoTypeServices = require('../services/taikoType.services'); 
 
 const readAll = (req, res) => {
     const readAll = taikoDrillsServices.readAll();
@@ -30,8 +32,23 @@ const readAll = (req, res) => {
 }
 
 const create = (req, res) => {
-    return taikoDrillsServices.create(req.body)
+    const promise = taikoDrillsServices.create(req.body)
+    promise
         .then(response => {
+            const equipment = req.body.equipment //if array is 0
+            for (let i = 0; i <= equipment.length - 1; i++) {
+                const drillId = response.outputParameters.Id; 
+                const equipmentId = equipment[i]; 
+                taikoEquipmentServices.create(drillId, equipmentId)
+            }
+
+            const type = req.body.type
+            for (let i = 0; i <= type.length - 1; i++) {
+                const drillId = response.outputParameters.Id
+                const typeId = type[i]
+                taikoTypeServices.create(drillId, typeId)
+            }
+
             res.status(200).json(response)
         })
         .catch(err => {

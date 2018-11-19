@@ -1,6 +1,9 @@
 import React from 'react';
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
-
+// import { ThemeProvider } from '@zendeskgarden/react-theming';
+import '@zendeskgarden/react-checkboxes/dist/styles.css';
+import { Grid, Row, Col, ControlLabel } from 'react-bootstrap'; 
+import { Checkbox, Label } from '@zendeskgarden/react-checkboxes'; 
 class DrillGenerator extends React.Component {
     constructor(props) {
         super(props)
@@ -50,7 +53,56 @@ class DrillGenerator extends React.Component {
                 <div className="masthead bg-primary text-white text-center">
                     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                     <h4 style={{color: "#1A2930"}}>What do you want to practice?</h4>
-
+                    <br />
+                    <Grid>
+                        <Row>
+                            <Col md={3}></Col>
+                            <Col md={2} style={{textAlign: "left", borderStyle: "dotted", padding: "20px", margin: "10px"}} >
+                                <ControlLabel>Type</ControlLabel>
+                                <Checkbox>
+                                    <Label>Fundamentals</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Control/Dexterity</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Endurance</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Speed</Label>
+                                </Checkbox>
+                            </Col>
+                            <Col md={2} style={{textAlign: "left", borderStyle: "dotted", padding: "20px", margin: "10px"}}>
+                                <ControlLabel>Equipment</ControlLabel>
+                                <Checkbox>
+                                    <Label>Shime</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Beta</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Naname</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Odaiko</Label>
+                                </Checkbox>
+                            </Col>
+                            <Col md={2} style={{textAlign: "left", borderStyle: "dotted", padding: "20px", margin: "10px"}}>
+                                <ControlLabel>Difficulty</ControlLabel>
+                                <Checkbox>
+                                    <Label>Beginner</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Intermediate</Label>
+                                </Checkbox>
+                                <Checkbox>
+                                    <Label>Advanced</Label>
+                                </Checkbox>
+                            </Col>
+                            <Col md={3}></Col>
+                        </Row>
+                    </Grid>
+                    
                     <br /><br />
                     <button className="btn btn-xl btn-outline-light" style={{color: "#1A2930"}} onClick={this.onFind}>Find Me A Drill</button>
                     <br /><br />

@@ -12,6 +12,12 @@ const readAll = () => {
         .catch(responseError)
 }
 
+const readByDrillId = (id) => {
+    return axios.get("/api/taiko-drills/" + id)
+        .then(responseSuccess)
+        .catch(responseError)
+}
+
 const post = data => {
     debugger
     return axios.post("/api/taiko-drills", data)
@@ -40,4 +46,4 @@ const responseError = error => {
     console.log(error)
 }
 
-export { readRandom, readAll, post, updateById, deleteById }
+export { readRandom, readAll, readByDrillId, post, updateById, deleteById }
