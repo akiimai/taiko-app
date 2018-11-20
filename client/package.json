@@ -18,8 +18,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "postinstall": "cd client && npm i",
-    // "heroku-postbuild": "cd client && npm install && npm run build",
+    "postinstall": "npm --prefix client i",
+    "heroku-postbuild": "cd client && npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
