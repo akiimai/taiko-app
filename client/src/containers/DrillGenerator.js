@@ -5,6 +5,8 @@ import '@zendeskgarden/react-checkboxes/dist/styles.css';
 import "./DrillGenerator.css";
 import { Grid, Row, Col, ControlLabel } from 'react-bootstrap'; 
 import { Checkbox, Label } from '@zendeskgarden/react-checkboxes'; 
+import { withRouter } from 'react-router-dom'; 
+import DrillGeneratorModal from './DrillGeneratorModal'; 
 class DrillGenerator extends React.Component {
     constructor(props) {
         super(props)
@@ -14,6 +16,8 @@ class DrillGenerator extends React.Component {
             data: null
         }
         this.onFind = this.onFind.bind(this);
+        this.toAdd = this.toAdd.bind(this);
+        this.toList = this.toList.bind(this);
     }
 
     onFind() {
@@ -27,32 +31,19 @@ class DrillGenerator extends React.Component {
             .catch(console.log)
     }
 
+    toAdd() {
+        this.props.history.push('/drill-form', window.scrollTo(0, 0))
+    }
+
+    toList() {
+        this.props.history.push('/drill-list', window.scrollTo(0, 0))
+    }
+
     render() { 
-        let select;
-        if (this.state.select) {
-            select = this.state.data ? this.state.data.map(item => {
-                return (
-                    <div className="container">
-                        <div className="row" style={{color: "black"}}>
-                            <div className="col-lg-3"></div>
-                            <div className="col-lg-6" style={{textAlign: "left", padding: "20px", margin: "10px", backgroundColor: "white", borderRadius: "10px"}}>
-                                <p><strong>Name:</strong> {item.Name}</p>
-                                <p><strong>Description:</strong> {item.Description}</p>
-                                <p><strong>Length:</strong> {item.Length} </p>
-                            </div>
-                            <div className="col-lg-3"></div>
-
-                        </div>
-                    </div>
-                )
-            })
-                : "is loading"
-        }
-
         return (
             <React.Fragment>
                 <div className="masthead bg-primary text-white text-center">
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br />
                     <h4 style={{color: "#1A2930"}}>What do you want to practice?</h4>
                     <br />
                     <Grid>
@@ -117,44 +108,37 @@ class DrillGenerator extends React.Component {
                     </Grid>
                     
                     <br /><br />
-                    <button className="btn btn-xl btn-outline-light" style={{color: "#1A2930"}} onClick={this.onFind}>Find Me A Drill</button>
+                    {/* <button className="btn btn-xl btn-outline-light" style={{color: "#1A2930"}} onClick={this.onFind}>Find Me A Drill</button> */}
+                    <DrillGeneratorModal />
                     <br /><br />
                     <br /><br />
-                    {select}
+                    {/* {select} */}
                     <br /><br />
                     <br /><br />
                     <br /><br />
                 </div>
                 <section id="services">
-                    {/* <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12 text-center">
-                                <h2 className="section-heading">Drills</h2>
-                                <hr className="my-4" />
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="container">
                         <div className="row">
                         <hr></hr>
-                            <div className="col-lg-3 col-md-6 text-center">
+                            <div className="col-md-2 text-center">
                                 
                             </div>
-                            <div className="col-lg-3 col-md-6 text-center">
-                                <div className="service-box mt-5 mx-auto">
+                            <div className="col-md text-center" >
+                                <div className="service-box mt-5 mx-auto" onClick={this.toAdd}>
                                     <i className="fas fa-4x far fas fa-plus-circle text-primary mb-3 sr-icon-2"></i>
-                                    <h3 className="mb-3">Add A Drill</h3>
+                                    <h3 className="mb-3" >Add A Drill</h3>
                                     <p className="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
                                 </div>
                             </div>
-                            <div className="col-lg-3 col-md-6 text-center">
-                                <div className="service-box mt-5 mx-auto">
+                            <div className="col-md text-center">
+                                <div className="service-box mt-5 mx-auto" onClick={this.toList}>
                                     <i className="fas fa-4x fas fa-list-alt text-primary mb-3 sr-icon-1"></i>
                                     <h3 className="mb-3">See All Drills</h3>
                                     <p className="text-muted mb-0">Sed ut perspiciatis unde omnis iste natus error sit doloremque laudantium.</p>
                                 </div>
                             </div>
-                            <div className="col-lg-3 col-md-6 text-center">
+                            <div className="col-md-2 text-center">
                                 
                             </div>
                         </div>
@@ -165,4 +149,4 @@ class DrillGenerator extends React.Component {
     }
 }
 
-export default DrillGenerator; 
+export default withRouter(DrillGenerator); 
