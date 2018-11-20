@@ -13,12 +13,28 @@ class DrillGenerator extends React.Component {
 
         this.state = {
             select: false,
-            data: null
+            data: null, 
+            isChecked: null
         }
         this.onFind = this.onFind.bind(this);
         this.toAdd = this.toAdd.bind(this);
         this.toList = this.toList.bind(this);
+        this.onModalClose = this.onModalClose.bind(this); 
+        // this.checkChange = this.checkChange.bind(this);
     }
+
+    onModalClose() {
+        this.setState({
+            isChecked: false
+        })
+        // this.test()
+    }
+
+    // checkChange() {
+    //     this.setState({
+    //         isChecked: true
+    //     })
+    // }
 
     onFind() {
         drillsGeneratorServices.readRandom()
@@ -55,35 +71,35 @@ class DrillGenerator extends React.Component {
                                 <br/>
                                 <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>TYPE</ControlLabel>
                                 </div>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Fundamentals</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked} >
                                     <Label>Control/Dexterity</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked} >
                                     <Label>Endurance</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked} >
                                     <Label>Speed</Label>
                                 </Checkbox>
                             </Col>
                             <Col className="col-md body-container" style={{textAlign: "left", padding: "20px", margin: "10px", backgroundColor: "white", borderRadius: "10px"}}>
                             <div style={{textAlign:"center"}}>
-                                <i className="fas fa-drum text-primary mb-3" style={{fontSize: "30px"}}></i>
+                                <i className="fas fa-drum text-primary mb-3" style={ {fontSize: "30px"}}></i>
                                 <br/>
                                 <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>EQUIPMENT</ControlLabel>
                                 </div>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Shime</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Beta</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Naname</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Odaiko</Label>
                                 </Checkbox>
                             </Col>
@@ -93,13 +109,13 @@ class DrillGenerator extends React.Component {
                                 <br/>
                                 <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>DIFFICULTY</ControlLabel>
                                 </div>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Beginner</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Intermediate</Label>
                                 </Checkbox>
-                                <Checkbox>
+                                <Checkbox checked={this.state.isChecked}>
                                     <Label>Advanced</Label>
                                 </Checkbox>
                             </Col>
@@ -109,7 +125,7 @@ class DrillGenerator extends React.Component {
                     
                     <br /><br />
                     {/* <button className="btn btn-xl btn-outline-light" style={{color: "#1A2930"}} onClick={this.onFind}>Find Me A Drill</button> */}
-                    <DrillGeneratorModal />
+                    <DrillGeneratorModal mount={this.onModalClose} />
                     <br /><br />
                     <br /><br />
                     {/* {select} */}
@@ -127,7 +143,7 @@ class DrillGenerator extends React.Component {
                             <div className="col-md text-center" >
                                 <div className="service-box mt-5 mx-auto" onClick={this.toAdd}>
                                     <i className="fas fa-4x far fas fa-plus-circle text-primary mb-3 sr-icon-2"></i>
-                                    <h3 className="mb-3" >Add A Drill</h3>
+                                    <h3 className="mb-3">Add A Drill</h3>
                                     <p className="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
                                 </div>
                             </div>
@@ -142,6 +158,8 @@ class DrillGenerator extends React.Component {
                                 
                             </div>
                         </div>
+                        <br /><br />
+
                     </div>
                 </section>
             </React.Fragment>

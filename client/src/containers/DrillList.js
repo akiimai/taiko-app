@@ -1,9 +1,11 @@
 import React from 'react';
-import * as drillsGeneratorServices from '../services/drillsGenerator.services';
+import swal from 'sweetalert2';
+import Select from 'react-select'; 
+import DrillEditModal from './DrillEditModal';
 import { Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import DrillEditModal from './DrillEditModal';
-import swal from 'sweetalert2';
+import { filterByData } from './data'; 
+import * as drillsGeneratorServices from '../services/drillsGenerator.services';
 class DrillList extends React.Component {
     constructor(props) {
         super(props)
@@ -80,44 +82,29 @@ class DrillList extends React.Component {
                         <div class="row">
                             <div className="col-md-2"></div>
                             <div className="col-md-8">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xs-8 col-xs-offset-2">
-                                            <div class="input-group">
-                                                <div class="input-group-btn search-panel">
-                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                        <span id="search_concept">Filter by</span> <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a href="#contains">Contains</a></li>
-                                                        <li><a href="#its_equal">It's equal</a></li>
-                                                        <li><a href="#greather_than">Greather than ></a></li>
-                                                        <li><a href="#less_than">Less than </a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#all">Anything</a></li>
-                                                    </ul>
-                                                </div>
-                                                <input type="hidden" name="search_param" value="all" id="search_param" />
-                                                <input type="text" class="form-control" name="x" placeholder="Search term..." />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                                                </span>
-                                            </div>
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div className="input-group col-md-8">
+                                            <input className="form-control col-md-8" placeholder="Search..." />
+                                            <Select
+                                                className="col-md-4"
+                                                closeMenuOnSelect={true}
+                                                options={filterByData}
+                                                placeholder="Filter by"
+                                            />
+                                            {/* <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Filter by </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <li class="dropdown-item">Drill Name</li>
+                                                    <li class="dropdown-item">Type</li>
+                                                    <li class="dropdown-item">Equipment</li>
+                                                    <li class="dropdown-item">Difficulty</li>
+                                                </ul>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div class="row">
-                                    <div class="col-12">
-                                        <div class="input-group">
-                                            <input class="form-control border-secondary py-2" placeholder="search" />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <br />
                                 <h4 className="section-heading text-white"></h4>
                                 <Table hover>

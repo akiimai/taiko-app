@@ -27,3 +27,10 @@ export const typeData = [
     { value: 4, label: 'speed', name: 'type'}
 ]
 
+export const filterByData = [
+    { value: 1, label: 'Drill Name', name: 'type'}, 
+    { value: 2, label: 'Type', name: 'type'}, 
+    { value: 3, label: 'Equipment', name: 'type'}, 
+    { value: 4, label: 'Difficulty', name: 'type'}
+]
+

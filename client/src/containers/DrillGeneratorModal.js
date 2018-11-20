@@ -14,8 +14,9 @@ class DrillGeneratorModal extends React.Component {
         this.handleClose = this.handleClose.bind(this); 
         this.handleShow = this.handleShow.bind(this); 
     }
-    
+
     handleClose() {
+        this.props.mount(); 
         this.setState({ show: false });
     }
 
@@ -39,6 +40,7 @@ class DrillGeneratorModal extends React.Component {
                             <p style={{fontSize: "25px"}}><strong>{item.Name}</strong></p>
                             <p><strong>Description:</strong> {item.Description}</p>
                             <p><strong>Length:</strong> {item.Length} minutes</p>
+                            <p><strong>Difficulty:</strong> {item.DrillLevel} </p>
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 import React from 'react';
+import Select from 'react-select';
 import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import Select from 'react-select';
+import { levelData, lengthData, equipmentData, typeData } from './data';
 import * as validation from '../utils/validation';
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
-import { levelData, lengthData, equipmentData, typeData } from './data';
 class DrillForm extends React.Component {
     constructor(props) {
         super(props)
