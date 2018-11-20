@@ -84,7 +84,7 @@ class DrillList extends React.Component {
                             <div className="col-md-8">
                                 <div className="row">
                                     <div className="col-12">
-                                        <div className="input-group col-md-8">
+                                        <div className="input-group col-md-12">
                                             <input className="form-control col-md-8" placeholder="Search..." />
                                             <Select
                                                 className="col-md-4"

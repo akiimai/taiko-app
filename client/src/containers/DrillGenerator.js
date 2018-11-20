@@ -136,20 +136,19 @@ class DrillGenerator extends React.Component {
                 <section id="services">
                     <div className="container">
                         <div className="row">
-                        <hr></hr>
                             <div className="col-md-2 text-center">
                                 
                             </div>
-                            <div className="col-md text-center" >
+                            <div className="col-md text-center nav-container" >
                                 <div className="service-box mt-5 mx-auto" onClick={this.toAdd}>
                                     <i className="fas fa-4x far fas fa-plus-circle text-primary mb-3 sr-icon-2"></i>
                                     <h3 className="mb-3">Add A Drill</h3>
                                     <p className="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
                                 </div>
                             </div>
-                            <div className="col-md text-center">
+                            <div className="col-md text-center nav-container">
                                 <div className="service-box mt-5 mx-auto" onClick={this.toList}>
-                                    <i className="fas fa-4x fas fa-list-alt text-primary mb-3 sr-icon-1"></i>
+                                    <i className="fas fa-4x fas fa-list-alt text-primary mb-3 sr-icon-2"></i>
                                     <h3 className="mb-3">See All Drills</h3>
                                     <p className="text-muted mb-0">Sed ut perspiciatis unde omnis iste natus error sit doloremque laudantium.</p>
                                 </div>
@@ -158,7 +157,6 @@ class DrillGenerator extends React.Component {
                                 
                             </div>
                         </div>
-                        <br /><br />
 
                     </div>
                 </section>
