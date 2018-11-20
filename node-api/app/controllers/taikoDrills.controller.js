@@ -58,8 +58,31 @@ const create = (req, res) => {
 
 const updateById = (req, res) => {
     const id = parseInt(req.params.id)
-    return taikoDrillsServices.updateById(id, req.body)
+    const promise = taikoDrillsServices.updateById(id, req.body)
+    promise
         .then(response => {
+            // taikoEquipmentServices.readById(id)
+            //     .then(response => {
+            //         for (let i = 0; i < response.length; i++) {
+            //             if (!response[i]) {
+            //                 taikoEquipmentServices.create(id, )
+            //             } (response[i])
+            //         }
+            //     })
+            // const equipment = req.body.equipment //if array is 0
+            // for (let i = 0; i <= equipment.length - 1; i++) {
+            //     const drillId = response.outputParameters.Id; 
+            //     const equipmentId = equipment[i]; 
+            //     taikoEquipmentServices.create(drillId, equipmentId)
+            // }
+
+            // const type = req.body.type
+            // for (let i = 0; i <= type.length - 1; i++) {
+            //     const drillId = response.outputParameters.Id
+            //     const typeId = type[i]
+            //     taikoTypeServices.create(drillId, typeId)
+            // }
+
             res.status(200).json(response)
         })
         .catch(err => {

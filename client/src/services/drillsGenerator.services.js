@@ -19,7 +19,6 @@ const readByDrillId = (id) => {
 }
 
 const post = data => {
-    debugger
     return axios.post("/api/taiko-drills", data)
         .then(responseSuccess)
         .catch(responseError)

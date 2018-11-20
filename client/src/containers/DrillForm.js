@@ -146,9 +146,12 @@ class DrillForm extends React.Component {
                                         {validation.getCharValidation(this.state.name) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please enter drill name</HelpBlock> : null}
                                     </FormGroup>
                                     <FormGroup>
+                                        {/* <TextArea label='Text Area' placeholder='textarea' /> */}
+
                                         <ControlLabel>Description</ControlLabel>
                                         <FormControl
-                                            textarea
+                                            componentClass="textarea"
+                                            rows="3"
                                             className={"textarea-autosize" + validation.getCharValidation(this.state.description)}
                                             name="description"
                                             value={this.state.description.value}

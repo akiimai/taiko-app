@@ -1,0 +1,7 @@
+.body-container {
+    opacity: 0.9
+}
+
+.body-container:hover {
+    opacity: 1
+}

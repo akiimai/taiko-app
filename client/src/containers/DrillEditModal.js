@@ -28,10 +28,12 @@ class DrillEditModal extends React.Component {
                 touched: true,
                 value: this.props.itemData.EquipmentId
             },
+            equipmentValue: [],
             type: {
                 touched: true,
                 value: this.props.itemData.TypeId
             },
+            typeValue: [],
             drillLength: {
                 touched: true,
                 value: this.props.itemData.Length
@@ -42,6 +44,7 @@ class DrillEditModal extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
     }
 
@@ -51,8 +54,6 @@ class DrillEditModal extends React.Component {
     }
 
     handleShow(e, id) {
-        debugger
-
         drillsGeneratorServices.readByDrillId(id) 
             .then(() => {
                 this.setState({ show: true })
@@ -70,6 +71,43 @@ class DrillEditModal extends React.Component {
         })
     }
 
+    handleSelect(event) {
+        let value = []; 
+        if (event[0] && event[0].name === 'equipment') {
+            for (let i = 0; i < event.length; i++) {
+                value.push(event[i].value)
+            }
+            this.setState({
+                equipmentValue: value
+            })
+        } else if (event[0] && event[0].name === 'type') {
+            for (let i = 0; i < event.length; i++) {
+                value.push(event[i].value)
+            }
+            this.setState({
+                typeValue: value
+            })
+        }
+
+        if (event.name === 'level') {
+            const newObj = {
+                touched: true,
+                value: event.label
+            }
+            this.setState({
+                level: newObj
+            })
+        } else if (event.name === 'drillLength') {
+            const newObj = {
+                touched: true,
+                value: event.value
+            }
+            this.setState({
+                drillLength: newObj
+            })
+        }
+    }
+
     checkValidation() {
         return validation.getCharValidation(this.state.name) &&
             validation.getCharValidation(this.state.description) &&
@@ -84,7 +122,8 @@ class DrillEditModal extends React.Component {
         const data = {
             name: this.state.name.value,
             description: this.state.description.value,
-            level: this.state.level.value,
+            // level: this.state.level.value,
+            level: 1, 
             equipment: this.state.equipmentValue,
             type: this.state.typeValue,
             drillLength: parseInt(this.state.drillLength.value),
@@ -107,7 +146,7 @@ class DrillEditModal extends React.Component {
         return (
             <React.Fragment>
                 <button className="btn btn-sm btn-outline-light" onClick={e => this.handleShow(e, this.state.id)}>Edit</button>
-
+                
                 <Modal show={this.state.show} onHide={this.handleClose} animation={false} backdropStyle={{ opacity: 0.5 }}>
                     <Modal.Header>
                         <Modal.Title>Edit Drill</Modal.Title>
@@ -130,7 +169,8 @@ class DrillEditModal extends React.Component {
                             <FormGroup>
                                 <ControlLabel>Description</ControlLabel>
                                 <FormControl
-                                    textarea
+                                    componentClass="textarea"
+                                    rows="3"
                                     className={"textarea-autosize" + validation.getCharValidation(this.state.description)}
                                     name="description"
                                     value={this.state.description.value}
@@ -145,6 +185,7 @@ class DrillEditModal extends React.Component {
                                 <Select
                                     closeMenuOnSelect={true}
                                     options={levelData}
+                                    defaultValue={levelData[0]}
                                     onChange={this.handleSelect}
                                 />
                                 {/* {validation.getNumValidation(this.state.level) === "invalid" ? <HelpBlock style={{ color: "red" }}>* Please select a drill level</HelpBlock> : null} */}

@@ -16,7 +16,10 @@ class Nav extends Component {
         return (
             <nav className="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
                 <div className="container">
-                    <Link className="navbar-brand js-scroll-trigger" to='/'>Drill Generator</Link>
+                    <Link className="navbar-brand js-scroll-trigger" to='/'>
+                    <i className="fas fa-circle-notch text-primary mb-3" style={{fontSize: "30px", color:"F7882F"}} /> Drill Generator
+                    </Link>
+                    
                     <button className="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         Menu <i className="fas fa-bars"></i>
                     </button>

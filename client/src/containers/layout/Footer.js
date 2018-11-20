@@ -44,7 +44,7 @@ export default class Footer extends Component {
                             </div>
                             <div class="col-md-4">
                                 <h4 class="text-uppercase mb-4">About Drill Generator</h4>
-                                <p class="lead mb-0">Drill Generator is an application for taiko drummers created by <a href="https://linkedin.com/in/aki-imai/">Aki Imai</a>.</p>
+                                <p class="lead mb-0">Drill Generator is an application for drummers created by <a href="https://linkedin.com/in/aki-imai/">Aki Imai</a>.</p>
                             </div>
                         </div>
                     </div>
