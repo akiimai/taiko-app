@@ -17,9 +17,7 @@
     "sweetalert2": "^7.29.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "postinstall": "npm --prefix client i",
-    "heroku-postbuild": "cd client && npm run build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
