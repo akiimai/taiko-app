@@ -20,21 +20,17 @@ class DrillGenerator extends React.Component {
         this.toAdd = this.toAdd.bind(this);
         this.toList = this.toList.bind(this);
         this.onModalClose = this.onModalClose.bind(this); 
-        // this.checkChange = this.checkChange.bind(this);
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0);
     }
 
     onModalClose() {
         this.setState({
             isChecked: false
         })
-        // this.test()
     }
-
-    // checkChange() {
-    //     this.setState({
-    //         isChecked: true
-    //     })
-    // }
 
     onFind() {
         drillsGeneratorServices.readRandom()
@@ -131,7 +127,6 @@ class DrillGenerator extends React.Component {
                     {/* {select} */}
                     <br /><br />
                     <br /><br />
-                    <br /><br />
                 </div>
                 <section id="services">
                     <div className="container">
@@ -160,6 +155,22 @@ class DrillGenerator extends React.Component {
 
                     </div>
                 </section>
+                <div className="container-fluid about-body">
+                    <div className="row" id="about-body">
+                        <div className="col-md-4"></div>
+                        <div className="col-md-4 about">
+                            <br/><br/><br/>
+                            <i className="fas fa-circle-notch" style={{ fontSize: "30px", color: "#F7CE3E" }} />
+                            <div className="footer-head">
+                                <h2>About</h2>
+                            </div>
+                            <p>Drill Generator is an open source app created for taiko drummers.
+                                Not sure what to practice or need a new drill idea? Use the random generator to pick a drill for you!
+                                    You can also build your own drills or view all existing drills. </p>
+                        </div>
+                    </div>
+                </div>
+                
             </React.Fragment>
         )
     }

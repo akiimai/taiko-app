@@ -42,6 +42,10 @@ class DrillForm extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     checkValidation() {
         return validation.getCharValidation(this.state.name) &&
             validation.getCharValidation(this.state.description) &&

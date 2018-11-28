@@ -11,12 +11,12 @@
 
 .nav-container {
     padding: 5px 5px 50px 5px; 
-    margin: 0px 5px
+    margin: 0px 20px 0px 20px; 
 }
 
 .nav-container:hover {
     border-radius: 20px; 
-    background-color: #F9F9F9; 
+    background-color: #F2F2F2; 
     padding: 5px 5px 50px 5px; 
-    margin: 0px 5px
+    margin: 0px 20px 0px 20px; 
 }

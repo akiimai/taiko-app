@@ -19,6 +19,7 @@ class DrillList extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.readAll()
     }
 
@@ -63,7 +64,7 @@ class DrillList extends React.Component {
                     <tr>
                         <td>{item.Name}</td>
                         <td>{item.Description}</td>
-                        <td>{item.Length}</td>
+                        <td>{item.Length} min</td>
                         <td><button className="btn btn-sm btn-outline-light" onClick={e => this.onDelete(e, item.Id)}>Delete</button></td>
                         <td><DrillEditModal itemData={item} readAll={this.readAll} /></td>
                     </tr>
@@ -87,6 +88,7 @@ class DrillList extends React.Component {
                                         <div className="input-group col-md-12">
                                             <input className="form-control col-md-8" placeholder="Search..." />
                                             <Select
+                                                position="left"
                                                 className="col-md-4"
                                                 closeMenuOnSelect={true}
                                                 options={filterByData}
@@ -108,8 +110,8 @@ class DrillList extends React.Component {
                                 <br />
                                 <h4 className="section-heading text-white"></h4>
                                 <Table hover>
-                                    <thead key>
-                                        <th>Name</th>
+                                    <thead>
+                                        <th style={{width:"20%"}}>Name</th>
                                         <th>Description</th>
                                         <th>Length</th>
                                         <th></th>

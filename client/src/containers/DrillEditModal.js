@@ -122,8 +122,8 @@ class DrillEditModal extends React.Component {
         const data = {
             name: this.state.name.value,
             description: this.state.description.value,
-            // level: this.state.level.value,
-            level: 1, 
+            level: this.state.level.value,
+            // level: "Beginner", 
             equipment: this.state.equipmentValue,
             type: this.state.typeValue,
             drillLength: parseInt(this.state.drillLength.value),
