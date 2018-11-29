@@ -1,12 +1,16 @@
-.about {
-    padding: 30px; 
+.about-card {
+    padding: 50px 30px 100px; 
 }
 
 .about-body {
     background-color:#1a2930; 
     color: white; 
     text-align: center; 
-    padding: 30px
+    padding: 30px; 
+}
+
+html {
+    scroll-behavior: smooth; 
 }
 
 .footer-head {

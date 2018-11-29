@@ -1,5 +1,6 @@
 import React from 'react';
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
+import * as drillsCategoriesServices from '../services/drillsCategories.services'; 
 // import { ThemeProvider } from '@zendeskgarden/react-theming';
 import '@zendeskgarden/react-checkboxes/dist/styles.css';
 import "./DrillGenerator.css";
@@ -24,6 +25,14 @@ class DrillGenerator extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        drillsCategoriesServices.getDrillType()
+            .then(response => {
+                this.setState({
+                    type: response.data
+                })
+            })
+            .catch(console.log)
+
     }
 
     onModalClose() {
@@ -43,6 +52,10 @@ class DrillGenerator extends React.Component {
             .catch(console.log)
     }
 
+    onChange(e) {
+        console.log(e.target.value)
+    }
+
     toAdd() {
         this.props.history.push('/drill-form', window.scrollTo(0, 0))
     }
@@ -54,9 +67,9 @@ class DrillGenerator extends React.Component {
     render() { 
         return (
             <React.Fragment>
-                <div className="masthead bg-primary text-white text-center">
+                <div className="masthead bg-primary text-white text-center" id="page-top">
                     <br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    <h4 style={{color: "#1A2930"}}>What do you want to practice?</h4>
+                    <h4 style={{color: "#1A2930"}} >What do you want to practice?</h4>
                     <br />
                     <Grid>
                         <Row>
@@ -67,10 +80,10 @@ class DrillGenerator extends React.Component {
                                 <br/>
                                 <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>TYPE</ControlLabel>
                                 </div>
-                                <Checkbox checked={this.state.isChecked}>
+                                <Checkbox onChange={this.onChange} value="1" checked={this.state.isChecked}>
                                     <Label>Fundamentals</Label>
                                 </Checkbox>
-                                <Checkbox checked={this.state.isChecked} >
+                                <Checkbox onChange={this.onChange} value="2" checked={this.state.isChecked} >
                                     <Label>Control/Dexterity</Label>
                                 </Checkbox>
                                 <Checkbox checked={this.state.isChecked} >
@@ -138,14 +151,14 @@ class DrillGenerator extends React.Component {
                                 <div className="service-box mt-5 mx-auto" onClick={this.toAdd}>
                                     <i className="fas fa-4x far fas fa-plus-circle text-primary mb-3 sr-icon-2"></i>
                                     <h3 className="mb-3">Add A Drill</h3>
-                                    <p className="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                                    <p className="text-muted mb-0">Have a new drill idea? Add it here!</p>
                                 </div>
                             </div>
                             <div className="col-md text-center nav-container">
                                 <div className="service-box mt-5 mx-auto" onClick={this.toList}>
                                     <i className="fas fa-4x fas fa-list-alt text-primary mb-3 sr-icon-2"></i>
-                                    <h3 className="mb-3">See All Drills</h3>
-                                    <p className="text-muted mb-0">Sed ut perspiciatis unde omnis iste natus error sit doloremque laudantium.</p>
+                                    <h3 className="mb-3">View All Drills</h3>
+                                    <p className="text-muted mb-0">Not sure if we have the drill you have in mind? View and search here!</p>
                                 </div>
                             </div>
                             <div className="col-md-2 text-center">
@@ -155,16 +168,16 @@ class DrillGenerator extends React.Component {
 
                     </div>
                 </section>
-                <div className="container-fluid about-body">
-                    <div className="row" id="about-body">
+                <div className="container-fluid about-body" id="about">
+                    <div className="row">
                         <div className="col-md-4"></div>
-                        <div className="col-md-4 about">
+                        <div className="col-md-4 about-card">
                             <br/><br/><br/>
                             <i className="fas fa-circle-notch" style={{ fontSize: "30px", color: "#F7CE3E" }} />
                             <div className="footer-head">
                                 <h2>About</h2>
                             </div>
-                            <p>Drill Generator is an open source app created for taiko drummers.
+                            <p>Drill Generator is an app created for taiko drummers.
                                 Not sure what to practice or need a new drill idea? Use the random generator to pick a drill for you!
                                     You can also build your own drills or view all existing drills. </p>
                         </div>

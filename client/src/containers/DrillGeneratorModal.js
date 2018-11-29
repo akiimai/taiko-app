@@ -72,19 +72,14 @@ class DrillGeneratorModal extends React.Component {
             null :
             <button className="btn btn-sm btn-outline-dark" onClick={this.resetTimer}>Reset</button>
 
-        ////
         const select = this.state.data ? this.state.data.map(item => {
             return (
-                // <div className="container">
-                //     <div className="row" style={{ color: "black" }}>
                 <div style={{ textAlign: "left", padding: "20px", margin: "10px", backgroundColor: "white", borderRadius: "10px" }}>
                     <p style={{ fontSize: "25px" }}><strong>{item.Name}</strong></p>
                     <p><strong>Description:</strong> {item.Description}</p>
                     <p><strong>Length:</strong> {item.Length} minutes</p>
                     <p><strong>Difficulty:</strong> {item.DrillLevel} </p>
                 </div>
-                //     </div>
-                // </div>
             )
         })
             : "is loading"
@@ -97,13 +92,13 @@ class DrillGeneratorModal extends React.Component {
                         <div className="container">
                             <div className="row" style={{ color: "black" }}>
                                 {select}
-                                
+
                                 <div style={{ textAlign: "left", padding: "20px", backgroundColor: "white", borderRadius: "10px" }}>
-                                <h4>Timer {ms(this.state.time)}</h4>
-                                {start}
-                                {resume}
-                                {stop}
-                                {reset}
+                                    <h4>Timer {ms(this.state.time)}</h4>
+                                    {start}
+                                    {resume}
+                                    {stop}
+                                    {reset}
                                 </div>
                             </div>
                         </div>

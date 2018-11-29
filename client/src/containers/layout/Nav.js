@@ -16,7 +16,7 @@ class Nav extends Component {
         return (
             <nav className="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
                 <div className="container">
-                    <Link className="navbar-brand js-scroll-trigger" to='/'>
+                    <Link className="navbar-brand js-scroll-trigger" to='/#page-top'>
                     <i className="fas fa-circle-notch text-primary mb-3" style={{fontSize: "30px", color:"F7882F"}} /> Drill Generator
                     </Link>
                     
