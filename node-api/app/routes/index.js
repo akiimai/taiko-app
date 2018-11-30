@@ -6,6 +6,6 @@ const drillTypeRoutes = require('./drillType.routes');
 router.use('/taiko-glossary', taikoGlossaryRoutes)
 router.use('/taiko-drills/generator', taikoDrillsRoutes)
 router.use('/taiko-drills', taikoDrillsRoutes)
-router.use('/drill-type', drillTypeRoutes)
+// router.use('/drill-type', drillTypeRoutes)
 
 module.exports = router; 

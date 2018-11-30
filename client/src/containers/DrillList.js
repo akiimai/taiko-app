@@ -108,7 +108,7 @@ class DrillList extends React.Component {
                                     </div>
                                 </div>
                                 <br />
-                                <h4 className="section-heading text-white"></h4>
+                                <h4 className="section-heading text-white">Add Drill</h4>
                                 <Table hover>
                                     <thead>
                                         <th style={{width:"20%"}}>Name</th>

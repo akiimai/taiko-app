@@ -142,7 +142,6 @@ class DrillEditModal extends React.Component {
     }
 
     render() {
-        const test = equipmentData[0] + equipmentData[1]
         return (
             <React.Fragment>
                 <button className="btn btn-sm btn-outline-light" onClick={e => this.handleShow(e, this.state.id)}>Edit</button>

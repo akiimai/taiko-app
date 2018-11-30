@@ -1,12 +1,30 @@
 .body-container {
     opacity: 0.9; 
     border-style: solid; 
+    text-align: left; 
+    padding: 20px; 
+    margin: 10px; 
+    background-color: white; 
+    border-radius: 10px; 
 }
 
 .body-container:hover {
     opacity: 1; 
     border-style: solid; 
     border-color: #C4C4C4;  
+}
+
+.category-icon {
+    font-size: 30px; 
+}
+
+.category-title {
+    color: #1A2930; 
+    text-align: center; 
+}
+
+.category-body {
+    text-align: center; 
 }
 
 .nav-container {
@@ -19,4 +37,8 @@
     background-color: #F2F2F2; 
     padding: 5px 5px 50px 5px; 
     margin: 0px 20px 0px 20px; 
+}
+
+h4 {
+    color: #1A2930; 
 }

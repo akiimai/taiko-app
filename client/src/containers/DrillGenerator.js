@@ -1,59 +1,100 @@
 import React from 'react';
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
-import * as drillsCategoriesServices from '../services/drillsCategories.services'; 
 // import { ThemeProvider } from '@zendeskgarden/react-theming';
 import '@zendeskgarden/react-checkboxes/dist/styles.css';
-import "./DrillGenerator.css";
-import { Grid, Row, Col, ControlLabel } from 'react-bootstrap'; 
+import "./DrillGenerator.css"; 
+import DrillGeneratorModal from './DrillGeneratorModal';
+import { Grid, Row, Col, ControlLabel } from 'react-bootstrap';
 import { Checkbox, Label } from '@zendeskgarden/react-checkboxes'; 
 import { withRouter } from 'react-router-dom'; 
-import DrillGeneratorModal from './DrillGeneratorModal'; 
+import { levelData, equipmentData, typeData } from './data';
 class DrillGenerator extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            select: false,
+            // select: false,
             data: null, 
-            isChecked: null
         }
         this.onFind = this.onFind.bind(this);
         this.toAdd = this.toAdd.bind(this);
         this.toList = this.toList.bind(this);
         this.onModalClose = this.onModalClose.bind(this); 
+        this.onChange = this.onChange.bind(this); 
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
-        drillsCategoriesServices.getDrillType()
-            .then(response => {
-                this.setState({
-                    type: response.data
-                })
-            })
-            .catch(console.log)
 
+        this.setState({
+            typeData: typeData, 
+            equipmentData: equipmentData, 
+            levelData: levelData
+        }) 
     }
 
     onModalClose() {
-        this.setState({
-            isChecked: false
-        })
+        for (let i = 0; i < this.state.typeData.length; i++) {
+            if (this.state.typeData[i].isChecked === true) {
+                let obj = this.state.typeData
+                obj[i].isChecked = null 
+                this.setState({
+                    typeData: obj
+                })
+            }
+        }
+
+        for (let i = 0; i < this.state.equipmentData.length; i++) {
+            // if (this.state.typeData[i].isChecked === true) {
+                let obj = this.state.equipmentData
+                obj[i].isChecked = null 
+                this.setState({
+                    equipmentData: obj
+                })
+            // }
+        }
+
+        for (let i = 0; i < this.state.typeData.length; i++) {
+            if (this.state.typeData[i].isChecked === true) {
+                let obj = this.state.typeData
+                obj[i].isChecked = null 
+                this.setState({
+                    typeData: obj
+                })
+            }
+        }
     }
 
     onFind() {
         drillsGeneratorServices.readRandom()
             .then(response => {
                 this.setState({
-                    select: true,
+                    // select: true,
                     data: response
                 })
             })
             .catch(console.log)
     }
 
-    onChange(e) {
-        console.log(e.target.value)
+    onChange(e, index) {
+        if (!this.state.typeData[index].isChecked) {
+            let obj = JSON.parse(JSON.stringify(this.state.typeData))
+            obj[index].isChecked = true;
+            this.setState({
+                typeData: obj
+            })
+            console.log(obj)
+        } 
+
+        if (!this.state.equipmentData[index].isChecked) {
+            let obj = JSON.parse(JSON.stringify(this.state.equipmentData))
+            obj[index].isChecked = true;
+            this.setState({
+                equipmentData: obj
+            })
+            console.log(obj)
+        } 
+
     }
 
     toAdd() {
@@ -65,87 +106,75 @@ class DrillGenerator extends React.Component {
     }
 
     render() { 
+        const type = this.state.typeData && this.state.typeData.map((item, index) => {
+            return (
+                <Checkbox onChange={e => this.onChange(e, index)} value={item.value} checked={item.isChecked}>
+                    <Label>{item.label}</Label>
+                </Checkbox>
+            )
+        })
+
+        const equipment = this.state.equipmentData && this.state.equipmentData.map(item => {
+            return (
+                <Checkbox onChange={this.onChange} value={item.value} checked={this.state.isChecked}>
+                    <Label>{item.label}</Label>
+                </Checkbox>
+            ) 
+        })
+
+        const level = this.state.levelData && this.state.levelData.map(item => {
+            return (
+                <Checkbox onChange={this.onChange} value={item.value} checked={this.state.isChecked}>
+                    <Label>{item.label}</Label>
+                </Checkbox>
+            )
+        })
+        
         return (
             <React.Fragment>
                 <div className="masthead bg-primary text-white text-center" id="page-top">
                     <br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    <h4 style={{color: "#1A2930"}} >What do you want to practice?</h4>
+                    <h4>What do you want to practice?</h4>
                     <br />
                     <Grid>
                         <Row>
                             <Col className="col-md"></Col>
-                            <Col className="col-md body-container" style={{textAlign: "left", padding: "20px", margin: "10px", backgroundColor: "white", borderRadius: "10px"}} >
-                                <div style={{textAlign:"center"}}>
-                                <i className="fas fa-brain text-primary mb-3" style={{fontSize: "30px", color:"F7882F"}}></i>
-                                <br/>
-                                <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>TYPE</ControlLabel>
+                            <Col className="col-md body-container">
+                                <div className="category-body">
+                                    <i className="fas fa-brain text-primary mb-3 category-icon"></i>
+                                    <br />
+                                    <ControlLabel className="category-title">TYPE</ControlLabel>
                                 </div>
-                                <Checkbox onChange={this.onChange} value="1" checked={this.state.isChecked}>
-                                    <Label>Fundamentals</Label>
-                                </Checkbox>
-                                <Checkbox onChange={this.onChange} value="2" checked={this.state.isChecked} >
-                                    <Label>Control/Dexterity</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked} >
-                                    <Label>Endurance</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked} >
-                                    <Label>Speed</Label>
-                                </Checkbox>
+                                {type}
                             </Col>
-                            <Col className="col-md body-container" style={{textAlign: "left", padding: "20px", margin: "10px", backgroundColor: "white", borderRadius: "10px"}}>
-                            <div style={{textAlign:"center"}}>
-                                <i className="fas fa-drum text-primary mb-3" style={ {fontSize: "30px"}}></i>
-                                <br/>
-                                <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>EQUIPMENT</ControlLabel>
+                            <Col className="col-md body-container">
+                                <div className="category-body">
+                                    <i className="fas fa-drum text-primary mb-3 category-icon"></i>
+                                    <br />
+                                    <ControlLabel className="category-title">EQUIPMENT</ControlLabel>
                                 </div>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Shime</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Beta</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Naname</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Odaiko</Label>
-                                </Checkbox>
+                                {equipment}
                             </Col>
-                            <Col className="col-md body-container" style={{textAlign: "left", padding: "20px", margin: "10px", backgroundColor: "white", borderRadius: "10px"}}>
-                                <div style={{textAlign:"center"}}>
-                                <i className="fas fa-bars text-primary mb-3" style={{fontSize: "30px"}}></i>
-                                <br/>
-                                <ControlLabel style={{color:"#1A2930", textAlign: "center"}}>DIFFICULTY</ControlLabel>
+                            <Col className="col-md body-container">
+                                <div className="category-body">
+                                    <i className="fas fa-bars text-primary mb-3 category-icon"></i>
+                                    <br />
+                                    <ControlLabel className="category-title">DIFFICULTY</ControlLabel>
                                 </div>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Beginner</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Intermediate</Label>
-                                </Checkbox>
-                                <Checkbox checked={this.state.isChecked}>
-                                    <Label>Advanced</Label>
-                                </Checkbox>
+                                {level}
                             </Col>
                             <Col className="col-md"></Col>
                         </Row>
                     </Grid>
                     
                     <br /><br />
-                    {/* <button className="btn btn-xl btn-outline-light" style={{color: "#1A2930"}} onClick={this.onFind}>Find Me A Drill</button> */}
                     <DrillGeneratorModal mount={this.onModalClose} />
-                    <br /><br />
-                    <br /><br />
-                    {/* {select} */}
-                    <br /><br />
-                    <br /><br />
+                    <br /><br /><br /><br /><br /><br /><br /><br />
                 </div>
                 <section id="services">
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-2 text-center">
-                                
+                            <div className="col-md-2 text-center">   
                             </div>
                             <div className="col-md text-center nav-container" >
                                 <div className="service-box mt-5 mx-auto" onClick={this.toAdd}>
@@ -162,10 +191,8 @@ class DrillGenerator extends React.Component {
                                 </div>
                             </div>
                             <div className="col-md-2 text-center">
-                                
                             </div>
                         </div>
-
                     </div>
                 </section>
                 <div className="container-fluid about-body" id="about">

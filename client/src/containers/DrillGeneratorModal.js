@@ -59,16 +59,16 @@ class DrillGeneratorModal extends React.Component {
     }
 
     render() {
-        let start = (this.state.time == 0) ?
+        let start = (this.state.time === 0) ?
             <button className="btn btn-sm btn-outline-dark" onClick={this.startTimer}>Start</button> :
             null
-        let stop = (this.state.time == 0 || !this.state.isOn) ?
+        let stop = (this.state.time === 0 || !this.state.isOn) ?
             null :
             <button className="btn btn-sm btn-outline-dark" onClick={this.stopTimer}>Stop</button>
-        let resume = (this.state.time == 0 || this.state.isOn) ?
+        let resume = (this.state.time === 0 || this.state.isOn) ?
             null :
             <button className="btn btn-sm btn-outline-dark" onClick={this.startTimer}>Resume</button>
-        let reset = (this.state.time == 0 || this.state.isOn) ?
+        let reset = (this.state.time === 0 || this.state.isOn) ?
             null :
             <button className="btn btn-sm btn-outline-dark" onClick={this.resetTimer}>Reset</button>
 
