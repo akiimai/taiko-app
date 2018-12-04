@@ -8,4 +8,4 @@ router.use('/taiko-drills/generator', taikoDrillsRoutes)
 router.use('/taiko-drills', taikoDrillsRoutes)
 // router.use('/drill-type', drillTypeRoutes)
 
-module.exports = router; 
+module.exports = router;

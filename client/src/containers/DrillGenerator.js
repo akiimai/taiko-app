@@ -41,7 +41,7 @@ class DrillGenerator extends React.Component {
                 this.setState({
                     typeData: obj
                 })
-            }
+            } 
         }
 
         for (let i = 0; i < this.state.equipmentData.length; i++) {
@@ -77,6 +77,8 @@ class DrillGenerator extends React.Component {
     }
 
     onChange(e, index) {
+        debugger 
+        console.log(e.target)
         if (!this.state.typeData[index].isChecked) {
             let obj = JSON.parse(JSON.stringify(this.state.typeData))
             obj[index].isChecked = true;
@@ -116,7 +118,7 @@ class DrillGenerator extends React.Component {
 
         const equipment = this.state.equipmentData && this.state.equipmentData.map(item => {
             return (
-                <Checkbox onChange={this.onChange} value={item.value} checked={this.state.isChecked}>
+                <Checkbox onChange={this.onChange} value={item.value} checked={item.isChecked}>
                     <Label>{item.label}</Label>
                 </Checkbox>
             ) 
@@ -124,7 +126,7 @@ class DrillGenerator extends React.Component {
 
         const level = this.state.levelData && this.state.levelData.map(item => {
             return (
-                <Checkbox onChange={this.onChange} value={item.value} checked={this.state.isChecked}>
+                <Checkbox onChange={this.onChange} value={item.value} checked={item.isChecked}>
                     <Label>{item.label}</Label>
                 </Checkbox>
             )
@@ -135,7 +137,7 @@ class DrillGenerator extends React.Component {
                 <div className="masthead bg-primary text-white text-center" id="page-top">
                     <br /><br /><br /><br /><br /><br /><br /><br /><br />
                     <h4>What do you want to practice?</h4>
-                    <br />
+                    <br /> 
                     <Grid>
                         <Row>
                             <Col className="col-md"></Col>
