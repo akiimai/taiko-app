@@ -12,8 +12,10 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mssql": "^4.2.3",
+    "pg": "^7.7.1",
     "startbootstrap-creative": "^5.0.1",
-    "tedious": "^3.0.1"
+    "tedious": "^3.0.1",
+    "tedious-connection-pool": "^1.0.5"
   },
   "devDependencies": {
     "ws": "3.3.2"

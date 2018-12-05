@@ -2,7 +2,7 @@ import React from 'react';
 import * as drillsGeneratorServices from '../services/drillsGenerator.services';
 // import { ThemeProvider } from '@zendeskgarden/react-theming';
 import '@zendeskgarden/react-checkboxes/dist/styles.css';
-import "./DrillGenerator.css"; 
+import "./DrillGenerator.css";  
 import DrillGeneratorModal from './DrillGeneratorModal';
 import { Grid, Row, Col, ControlLabel } from 'react-bootstrap';
 import { Checkbox, Label } from '@zendeskgarden/react-checkboxes'; 

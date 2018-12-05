@@ -3,13 +3,24 @@ const ConnectionPool = require("tedious-connection-pool");
 
 const poolConfig = { min: 2, max: 4, log: false };
 
+// const connectionConfig = {
+//   userName: 'c60',
+//   password: 'c60',
+//   server: '127.0.0.1',
+//   options: {
+//     database: 'TaikoApp'
+//   }
+// }
+
 const connectionConfig = {
-  userName: 'c60',
-  password: 'c60',
-  server: '127.0.0.1',
-  options: {
-    database: 'TaikoApp'
-  }
+  server: 'aki-server.database.windows.net',
+  options: { 
+    encrypt: true,   
+    database: "drill-generator"
+  },
+  type: "default",
+  userName: "aki-server",
+  password: "Chocobi123#",
 }
 
 const pool = new ConnectionPool(poolConfig, connectionConfig);

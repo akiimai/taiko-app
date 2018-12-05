@@ -7,6 +7,8 @@ app.use(bodyParser.json())
 
 app.use('/api', routes) 
 
-app.listen(3306, () => {
-    console.log('listening on port 3306')
+var port = process.env.PORT || 1337
+
+app.listen(port, () => {
+    console.log('listening on port' + port)
 })
