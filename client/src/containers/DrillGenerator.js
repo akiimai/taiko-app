@@ -13,19 +13,19 @@ class DrillGenerator extends React.Component {
         super(props)
 
         this.state = {
-            // select: false,
-            data: null, 
+            data: null
         }
         this.onFind = this.onFind.bind(this);
         this.toAdd = this.toAdd.bind(this);
         this.toList = this.toList.bind(this);
         this.onModalClose = this.onModalClose.bind(this); 
-        this.onChange = this.onChange.bind(this); 
+        this.onChangeType = this.onChangeType.bind(this); 
+        this.onChangeEquip = this.onChangeEquip.bind(this); 
+        this.onChangeLevel = this.onChangeLevel.bind(this); 
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
-
         this.setState({
             typeData: typeData, 
             equipmentData: equipmentData, 
@@ -54,12 +54,12 @@ class DrillGenerator extends React.Component {
             // }
         }
 
-        for (let i = 0; i < this.state.typeData.length; i++) {
-            if (this.state.typeData[i].isChecked === true) {
-                let obj = this.state.typeData
+        for (let i = 0; i < this.state.levelData.length; i++) {
+            if (this.state.levelData[i].isChecked === true) {
+                let obj = this.state.levelData
                 obj[i].isChecked = null 
                 this.setState({
-                    typeData: obj
+                    levelData: obj
                 })
             }
         }
@@ -76,9 +76,7 @@ class DrillGenerator extends React.Component {
             .catch(console.log)
     }
 
-    onChange(e, index) {
-        debugger 
-        console.log(e.target)
+    onChangeType(e, index) {
         if (!this.state.typeData[index].isChecked) {
             let obj = JSON.parse(JSON.stringify(this.state.typeData))
             obj[index].isChecked = true;
@@ -87,7 +85,9 @@ class DrillGenerator extends React.Component {
             })
             console.log(obj)
         } 
+    }
 
+    onChangeEquip(e, index) {
         if (!this.state.equipmentData[index].isChecked) {
             let obj = JSON.parse(JSON.stringify(this.state.equipmentData))
             obj[index].isChecked = true;
@@ -96,7 +96,17 @@ class DrillGenerator extends React.Component {
             })
             console.log(obj)
         } 
+    }
 
+    onChangeLevel(e, index) {
+        if (!this.state.levelData[index].isChecked) {
+            let obj = JSON.parse(JSON.stringify(this.state.levelData))
+            obj[index].isChecked = true;
+            this.setState({
+                levelData: obj
+            })
+            console.log(obj)
+        } 
     }
 
     toAdd() {
@@ -110,23 +120,24 @@ class DrillGenerator extends React.Component {
     render() { 
         const type = this.state.typeData && this.state.typeData.map((item, index) => {
             return (
-                <Checkbox onChange={e => this.onChange(e, index)} value={item.value} checked={item.isChecked}>
+                // <Checkbox onChange={e => this.onChange(e, index)} value={item.value} checked={item.isChecked}>
+                <Checkbox onChange={e => this.onChangeType(e, index)} value={item.value} checked={item.isChecked}>
                     <Label>{item.label}</Label>
                 </Checkbox>
             )
         })
 
-        const equipment = this.state.equipmentData && this.state.equipmentData.map(item => {
+        const equipment = this.state.equipmentData && this.state.equipmentData.map((item, index) => {
             return (
-                <Checkbox onChange={this.onChange} value={item.value} checked={item.isChecked}>
+                <Checkbox onChange={e => this.onChangeEquip(e, index)} value={item.value} checked={item.isChecked}>
                     <Label>{item.label}</Label>
                 </Checkbox>
             ) 
         })
 
-        const level = this.state.levelData && this.state.levelData.map(item => {
+        const level = this.state.levelData && this.state.levelData.map((item, index) => {
             return (
-                <Checkbox onChange={this.onChange} value={item.value} checked={item.isChecked}>
+                <Checkbox onChange={e => this.onChangeLevel(e, index)} value={item.value} checked={item.isChecked}>
                     <Label>{item.label}</Label>
                 </Checkbox>
             )
