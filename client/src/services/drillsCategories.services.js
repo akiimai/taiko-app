@@ -1,7 +1,7 @@
 import axios from 'axios'; 
 
 const getDrillType = () => {
-    return axios.get("/api/drill-type")
+    return axios.get("/server.js/api/drill-type")
         .then(responseSuccess)
         .catch(responseError)
 }

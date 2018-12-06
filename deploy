@@ -1,0 +1,20 @@
+#!/bin/bash
+set -Eenxo pipefail
+
+# make a temporary directory for the deploy
+rm -rf deploy-temp
+mkdir deploy-temp
+
+# copy the node-api into that directory (without node-modules)
+# cp -R node-api/* deploy-temp/
+cd node-api/
+find . -type f -not -iname '*/node_modules/*' -exec cp '{}' '/deploy-temp/{}' ';'
+
+exit
+
+# build the React stuff and move that into the deploy directory
+cd client
+npm run build
+mv build ../deploy-temp
+cd ../deploy-temp
+mv build public
