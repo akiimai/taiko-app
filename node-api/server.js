@@ -9,7 +9,7 @@ app.use('/node-api/server.js/test', (req, res) => {
     res.status(200).json({ works: true });
 })
 
-app.use('/api', routes) 
+app.use('/server.js/api', routes) 
 
 var port = process.env.PORT || 1337
 

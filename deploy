@@ -1,20 +1,31 @@
 #!/bin/bash
-set -Eenxo pipefail
+
+set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
 # make a temporary directory for the deploy
-rm -rf deploy-temp
-mkdir deploy-temp
+rm -rf deploy-temp # Delete the deploy-temp directory (if it exists)
+mkdir deploy-temp # Make the deploy-temp directory
 
 # copy the node-api into that directory (without node-modules)
-# cp -R node-api/* deploy-temp/
-cd node-api/
-find . -type f -not -iname '*/node_modules/*' -exec cp '{}' '/deploy-temp/{}' ';'
-
-exit
+cp -R node-api/* deploy-temp/ # Copy everything from the node-api directory into deploy-temp
+rm -rf deploy-temp/node_modules # Delete the node_modules so we don't push them to Azure (Azure will npm install for us)
+#cd node-api/
+#find . -type f -not -iname '*/node_modules/*' -exec cp '{}' '/deploy-temp/{}' ';'
 
 # build the React stuff and move that into the deploy directory
 cd client
-npm run build
-mv build ../deploy-temp
+npm run build # This is part of the create-react-app. It builds the final HTML/JS/CSS files.
+mv build ../deploy-temp # Move the "build" directory (created by the "npm run build" above) into the deploy-temp directory
 cd ../deploy-temp
-mv build public
+mv build public # Rename the "build" directory to "public" (which is what Azure expects it to be called)
+
+# Initialize a Git repo
+git init # Create a throwaway git repo just so we can push to Azure
+git remote add azure https://akiimai@drill-generator.scm.azurewebsites.net/drill-generator.git
+git add -A
+git commit -m 'deploy commit'
+git push azure HEAD --force # We'll need to force push since this is a new throwaway repo and isn't really the same repo as the one we used to push last time we deployed 
+
+# Clean up
+cd ..
+rm -rf deploy-temp
