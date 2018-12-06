@@ -15,6 +15,7 @@ const poolConfig = { min: 2, max: 4, log: false };
 const connectionConfig = {
   server: 'aki-server.database.windows.net',
   options: { 
+    port: 1433, 
     encrypt: true,   
     database: "drill-generator"
   },
